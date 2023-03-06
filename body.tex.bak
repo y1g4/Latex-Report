@@ -1,0 +1,839 @@
+\chapter{Introduction}
+\label{chapter:introduction} %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section{Introduction}
+\section{Introduction}
+\label{sec:intro}
+\noindent Developing a software application faster without compromising its quality i.e easily maintainable, extensible is a dream for every software developer or company involved in software development. To reduce software development time, software application developers have adopted software reuse technologies. Software reuse is a process of creating software systems from existing system rather than building software from scratch. Benefits of software reuse ranges from reduced development time, increased product quality, improved reliability and decreased maintenance cost~\cite{businge:coevolution}. An example of widely used reusable technology is an application framework. A framework is a semi-complete application that can be used to produce customized software application. It provides a standard structure or template on which other application software can be built. Framework can exist as open source or commercial software. Example of open source framework include Eclipse and NetBeans Project, whereas commercial framework include MacApp.
+
+\noindent Due to high initial investment in its development effort and being a long lived ecosystem, a framework has to evolve over time. It requires to be maintained or else it will become less satisfactory or unstable~\cite{businge:coevolution}. After its first release, evolution and maintenance of the framework have to continue because of two major factor: fixing faults found and domain change~\cite{businge:coevolution,bosch2000:object}. During its reuse, framework related errors are discovered by its users which requires the framework to be changed. Domain changes arise due the fact that the framework lacks features required by its users. The requirement analysis for developing a framework should be carefully defined in the domain phase analysis however, the domain can never be exhaustive but it is often weakly defined and unstable over time~\cite{bosch2000:object}. When domain changes frequently, the framework will be more difficult to use and even worse if not maintained. it will become useless after a short time span. For a framework to remain usable, the domain changes captured by the framework have to be adapted during its evolution and maintenance.
+
+\noindent Frameworks are constantly evolving as a result of both increasing the quality of existing interfaces and also extension of these interfaces to accommodate new features. Framework provide two types interfaces to application that reuse its functionality namely: stable and unstable interfaces. Example of frameworks that make this distinction are Eclipse and Netbeans Frameworks. Usage of unstable interfaces is discouraged by framework developers because these interfaces are immature and may change arbitrarily and without notice in the new versions of the framework. Framework developers limit themselves to only extending Stable interfaces rather than changing it as whole.
+
+\noindent In practice, however new versions of successful and widely adopted frameworks frequently violate the assumption of preserving the interfaces that are labeled stable. This makes applications that only use the stable interfaces of the framework to fail when ported to new releases of the framework~\cite{xing2007:api,businge:coevolution}. For this reason, if framework developers are to avoid breaking any client code, they have to avoid making changes to the stable interfaces, even when these changes might improve the quality and performance of the framework. The framework developers have to make a tradeoff between improving the quality and performance of the stable interfaces in a new release and breaking some of the client code. Normally, framework developers have to violate the latter so as to evolve the framework and keep it alive.
+
+\noindent For applications developers to benefit from the improved quality and added functionality in the new versions of the framework, then their applications have to co-evolve with the framework. Applications have to evolve due to the following possible reasons: First, evolve in order to benefit from improved quality and new functionality from the framework. Second, Developers have to keep their software applications working with the latest Framework release so as to keep their customer base as well as to avoid missing out on new customers~\cite{businge:CSMR2013}. This is because customers are more confident about the application if it works with the latest release of the framework. For this reason, developers are forced to co-evolve their application with every new release of the framework versions even if they are not interested in the improved quality and new functionality from the framework. Lastly, Framework evolve as a result of specific requirements from the stakeholder of the application that can not be found in the reusable functionality of the framework.
+
+\noindent In this research, we will focus on the Eclipse framework specifically on Eclipse interfaces i.e. stable and unstable interfaces. For software application to benefit from the improved and added functionalities in the new versions of the framework, then these applications have to co-evolve with the framework. According to Jonh Businge ~\cite{businge:coevolution}, Co-evolution for an application which used Non-API in the older version of the Eclipse SDK is next to impossible. This is because its non-APIs were either deleted or modified in the newer version of the eclipse SDK thus the application now becomes incompatible when ported on the new framework version. The application will generate re-compilation errors once run on the new eclipse SDK. Changes made on Stable APIs are communicated and documented by the framework developer to framework users. For this reason all applications which use these stable interfaces are compatible when ported to new eclipse SDK.
+
+\section{Background}
+\label{sec:background}
+\subsection{The Eclipse Framework}
+Eclipse was initially developed by IBM and later released to the open source community. Eclipse Platform provides many APIs and many different smaller frameworks. The key framework in Eclipse is a plug-in based framework that can be used to develop and integrate software tools. This framework is often used to develop Integrated Development Environments (IDEs). The Eclipse Platform is written in Java. The studies addressed in this thesis focused on the Eclipse framework~\cite{Eclipse:Foundation}.
+
+Eclipse is an Open Source, extensible plug-in system, an integrated development environment (IDE) as well as an application framework. Eclipse is written in Java and by means of various plug-ins, other programming languages including Ada, C, C++, COBOL, Fortran, Haskell, Perl, PHP, Python, R, and Ruby are used. Tool builders contribute to the Eclipse framework by wrapping their tools in pluggable components. called Eclipse plug-ins, which conform to the Eclipse?s plug-in contract. Plug-ins are bundles of code or data that contribute functionality to a software system. The Functionality can be contributed in the form of code libraries, Java classes with APIs, platform extensions,
+or even documentation~\cite{AzadBolour:Eclipse_Arch}.
+
+\subsection{Evolution of the Eclipse Framework}
+Eclipse framework is a large and complex software system used by thousands of application developers. The framework has benefits such as code reuse and it provides a variety of APIs and non-APIs. Since its intervention the framework has evolved into 51 versions with 1.0 being its first version released on 7th November 2001 and 4.6 being its latest version released on 3rd June 2016 ~\cite{eclipseProject:eclipsedownload}.  For our research, we will focus on eclipse major versions. This is because as the framework evolves from one major version to another, more new project, sub-projects, packages, classes,interfaces, fields and methods are either added, changed and deleted from the framework.
+
+we used eclipse as a subject of our case study because; firstly, it is an open source framework and thus it will continue attracting more application developer. Secondly, it has been evolving for the past decade and we want to see how much of the changes occur and lastly, Eclipse is well documented especially the major version on which we have focus on.
+\subsection{Eclipse Plug-in Architecture}
+Eclipse framework comprises of a set of tools working together to support programming tasks. Eclipse SDK is a collection of different plug-ins. We categorize the plug-ins in the Eclipse framework into three main groups: Eclipse core
+plug-ins, Eclipse extension plug-ins, and Eclipse third-party plug-ins.
+
+\subsection{Eclipse Core Plug-ins (ECP)}
+These are plug-ins present in and shipped as part of the Eclipse SDK. When the user downloads Eclipse SDK, they downloads all ECPs.These ECPs are developed by Eclipse core team contributors. These core team contribute to the framework by wrapping their tools in pluggable components. The ECPs provide core functionality upon which all plug-in extensions are built. The ECPs also provide the runtime environment in which other plug-ins are loaded, integrated, and executed. The fully qualified names of ECP packages start with org.eclipse. Examples of ECPs include Java development tools (JDT), Standard Widget Toolkit (SWT) and Platform runtime and resource management (Core)~\cite{Eclipse:Foundation}. The study in this proposal is based on ECPs~\cite{eclipseProject:eclipsedownload}.
+
+\subsection{Eclipse Extension Plug-ins (EEP)}
+These are plug-ins built with the main goal of extending the Eclipse SDK. Most EEPs are large, generic, applications frameworks with tool plug-ins to build other specialized applications. Like the ECPs, fully qualified names of EEP packages start with org.eclipse, but as opposed to the ECPs, the EEPs are not shipped as part of the Eclipse SDK. Popular EEPs include:
+J2EE Standard Tools [9], Eclipse Modeling Framework~\cite{EMF:EMF_tools}, and PHP Development Tools~\cite{JacekPospychala:PhP_tools}.
+
+\subsection{Eclipse Third-Party Plug-ins (ETP)}
+ These are the remaining plug-ins. The size of these plug-ins ranges from very large application frameworks to small specialised applications. Unlike ECPs and EEPs, the package names of ETPs do not have a prefix org.eclipse. All ETPs use at least some functionality provided by ECPs but also may use functionality provided by EEPs. The ETPs are also sometimes referred to as Eclipse products/solutions. Many ETPs can be found in open-source repositories, e.g. SourceForge and GitHub.
+
+\subsection{Eclipse Unstable Interfaces}
+These are internal implementation artifacts that are found in a package with the substring \texttt{internal} in the fully qualified package name according to Eclipse naming convention ~\cite{jim:htute}. The internal implementations include public Java classes or interfaces, or public or protected methods, or fields in such a class or interface. Users are strongly discouraged from using any of the non-APIs since they may be unstable ~\cite{jim:evolving}. Eclipse clearly states that clients who think they must use these non-APIs do it at their own risk as non-APIs are subject to arbitrary change or removal without notice. Eclipse does not usually provide documentation and support to these non-APIs.
+
+\subsection{Eclipse Stable Interfaces}
+These are the public Java classes or interfaces that can be found in packages that do not contain the segment internal in the fully qualified package name, or a public or protected method, or field in such a class or interface. Eclipse states that, the APIs are considered to be stable and therefore can be used by any application developer without any risk. Furthermore, Eclipse also provides documentation and support for these APIs ~\cite{jim:evolving}.
+
+%\subsection{Evolution of Eclipse APIs}
+%With each new release of Eclipse, several changes are made to the API to add functionality. There is a requirement by Eclipse committers to ensure that the evolution of a component does not ?break? the plug-ins that reference code in that component. This is because an API change which results in incompatibility would mean that all plug-ins would have to be upgraded to the new API release, which can be quite costly ~\cite{jim:evolving,jim:htute}. It is therefore expected that as the API evolves, all pre-existing dependent applications and plug-ins will continue to function. The stated expectation holds true for minor changes. For major changes however, even with the understanding that breaking changes (also referred to as incompatible changes result in the incompatibility of the software that rely on that API, it is always necessary as the framework evolves to rework existing APIs to add functionality. Such major changes are therefore documented in the API documentation so as to inform software developers on how they can update their software in order to ensure compatibility with the new release.
+
+%\subsection{Evolution of Eclipse Non-APIs}
+%Eclipse non-APIs also undergo major and minor changes as the framework evolves. However, no documentation is available for non-APIs, as they are regarded as being part of the internal component implementation~\cite{jim:evolving,jim:htute}and are not intended to be used in client applications. Their use by third-party plug-in and client application developers is therefore greatly discouraged, as they are subject to arbitrary change and/or removal from new releases of Eclipse, and without giving any prior notice ~\cite{businge:coevolution}.
+
+%Therefore, unlike API users who are informed of any breaking changes in new versions of Eclipse and are provided with API documentation to enable the co-evolution and compatibility of their applications, non-API users have to critically study the Eclipse source code in order to identify what changes were made, and then make the necessary updates to their applications, in order to ensure compatibility with new releases.
+
+
+\section{Problem Statement} \label{problem}
+The Eclipse framework is a popular, open-source and large complex software ecosystem that provides functionality to application developers in form of reusable interfaces. The framework is constantly evolving to improve the quality of existing interfaces it provides and also capture new requirements for both existing and new users. Within the Eclipse frameworks, on average 67.5\% of the interfaces are non-APIs and 32.6\% are APIs.
+
+As stated in the previous section that Eclipse application developers manually find the functionality they require for their application from Eclipse and owing to the fact that Eclipse has more non-APIs than APIs, it is possible that as the application developers search for interfaces to use, they land on unstable non-APIs first and miss stable APIs. Usage of non-APIs continues to prevail because the Eclipse framework has no tool to help application developers distinguish between non-APIs and relatively stable non-APIs when searching for functionality to use in their applications. To this end, there is need to invent solutions to help application developers that use these non-APIs.
+
+\section{Objectives} \label{researchobjectives}
+\subsection{Main Objective }
+\noindent The main objective is to analyze Eclipse major releases to establish if there exist relatively old stable non-APIs offering the same functionality as the newly introduced unstable interfaces. 
+%We aim to recommend these relatively stable interfaces to be used by application developers instead of the unstable non-APIs. The results of our research study will reduce on the software incompatibility failure of application that arises as a result of using unstable interfaces.
+\subsection{Specific objectives}
+\begin{enumerate}[(i)]
+\item To carry out an investigation on Eclipse frameworks to establish if there exist alternative stable APIs that offers the same functionality as unstable APIs.
+\item To carry out an investigation on Eclipse framework to establish tthe graduation rate of non-APIs to APIs.
+\item To carry out an investigation on Eclipse frameworks to establish if there exist old stable non-APIs in Eclipse frameworks.
+\item To carry out an investigation to establish if there exist fault free stable non-APIs. 
+\end{enumerate}
+%\newpage
+\section{Research Questions} \label{researchquestions}
+In this section, we formulated research questions addressing the problem stated in section \ref{problem}.
+
+\emph{RQ1: What is the percentage of cloned Eclipse interfaces in the different Eclipse releases?}
+ Having identified that indeed clones exist in Eclipse, we proceed to identify if some of these identified clones originate from different Eclipse projects or originate from the same project but different sub-project. This is interesting because it means that clones are being introduces by different teams of Eclipse core contributors.
+
+\emph{RQ2: What extent do the different cloned Eclipse interfaces originate from different Eclipse projects or same Eclipse project but different sub-projects?}
+We wanted to determine if some of these identified clones can be useful to both the Eclipse interface providers and the interface users. In other words, amongst the identified clones, can we find clone pairs that have one of the interfaces originating from APIs and the other from non-APIs. Positive results of this analysis can be an input to a API recommendation tool to the non-API users since they search for functionality they require manually.
+
+\emph{RQ3: Can we find alternative stable APIs for unstable APIs?} Usage of unstable APIs is discouraged by framework developers because these unstable APIs are subject to change or removed from the new framework versions. Owing to the size of frameworks and number of developers associated with it, it is possible that there exist alternative stable APIs for unstable APIs.
+
+\emph{RQ4: What is the percentage of non-APIs promoted to APIs?} We want to find the number of non-APIs that are converted to APIs as the framework evolves from one version to another.
+
+\emph{RQ5: what percentage of non-API exist in the different Eclipse Releases?}
+
+\emph{RQ6: Can we find relative stable non-APIs during the evolution of Eclipse Framework?} We will establish the number of non-APIs that have remained unchanged as the framework evolves from one version to another and for how long they have been remained unchanged. Looking at their age, we will then recommend the stable non-APIs to be promoted to APIs.
+
+\emph{RQ7: Can we find old stable non-APIs as alternatives for new non-APIs?} Previous research revealed that applications that use old non-APIs have a high chance of compatibility success with new Eclipse releases compared to those that use newly introduced non-APIs. We want to carry out an investigation to establish if there exist old non-APIs offering the same functionality as the newly introduced non-APIs.
+
+%\newpage
+\section{Scope of the Study}
+\noindent In this research, we will carry out study analysis on 19 Eclipse Framework Major versions released between November 2001 and June 2016. We will study Eclipse stable APIs and unstable non-APIs in general and also study the changes made on these interfaces as the framework evolves. We will specifically focus on public methods since application developers only have access to these method within the eclipse framework. In our analysis, we will only focus on projects that adopt the naming criteria from the eclipse community i.e. projects that begin with \emph{org.eclipse.ProjectName.SubProjectName}. For example Eclipse core plugins like jdt, core, debug and swt.
+%\newpage
+\section{Justification}
+\noindent As a framework evolves, changes in its Application Programming Interface (API) break software applications that use the framework. Migrating such application is labour intensive because the application may be incompatible with the new framework version. Repairing these software application can be a challenging task because developers need to understand the changes made on the API change. Based on the result of our research work, we will recommend the alternative stable APIs to application developers. The results of our research study will reduce on the incompatibility failure of application when ported onto a new framework release.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Literature Review Section%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Literature Review}\label{chapter:Literature_Review}
+\section{Literature Review}
+In this section we present the findings from several literal sources with regard to the major concepts associated with this research. Information obtained from several journal articles, conference papers, relevant workshops, reputable websites, and published books are compiled to provide theoretical grounding and practical justification for the problem under investigation.
+
+\subsection{Evolution of Eclipse APIs}
+With each new release of Eclipse, several changes are made to the API to add functionality. There is a requirement by Eclipse committers to ensure that the evolution of a component does not ?break? the plug-ins that reference code in that component. This is because an API change which results in incompatibility would mean that all plug-ins would have to be upgraded to the new API release, which can be quite costly ~\cite{jim:evolving,jim:htute}. It is therefore expected that as the API evolves, all pre-existing dependent applications and plug-ins will continue to function. The stated expectation holds true for minor changes. For major changes however, even with the understanding that breaking changes (also referred to as incompatible changes result in the incompatibility of the software that rely on that API, it is always necessary as the framework evolves to rework existing APIs to add functionality. Such major changes are therefore documented in the API documentation so as to inform software developers on how they can update their software in order to ensure compatibility with the new release.
+
+\subsection{Evolution of Eclipse Non-APIs}
+Eclipse non-APIs also undergo major and minor changes as the framework evolves. However, no documentation is available for non-APIs, as they are regarded as being part of the internal component implementation~\cite{jim:evolving,jim:htute}and are not intended to be used in client applications. Their use by third-party plug-in and client application developers is therefore greatly discouraged, as they are subject to arbitrary change and/or removal from new releases of Eclipse, and without giving any prior notice ~\cite{businge:coevolution}.
+
+Therefore, unlike API users who are informed of any breaking changes in new versions of Eclipse and are provided with API documentation to enable the coevolution and compatibility of their applications, non-API users have to critically study the Eclipse source code in order to identify what changes were made, and then make the necessary updates to their applications, in order to ensure compatibility with new releases.
+
+\subsection{Empirical Studies on the Eclipse Framework}
+Several researchers have utilized different components of the Eclipse framework in their studies. This section discusses other empirical studies carried out on Eclipse, in addition to the work presented in by Businge ~\cite{businge:coevolution,Businge:GoodBad,businge:survival,Businge:compatibilityprediction,businge:developerloop}.
+
+Lapolla et al. ~\cite{lapolla2009empirical} used a questionnaire-based survey and an empirical analysis to assess the usability, specifically the effectiveness and efficacy, of the Eclipse framework, as a tool that supports new Java programmers in the development and maintenance of Java source code. During their research they used eleven bachelor?s students in Computer Science as research participants, who were introduced to Eclipse version 3.4.1 as an IDE, and then required to complete several software development and maintenance tasks using Eclipse; they were also required to fill out a questionnaire about their satisfaction with the tool. Their survey revealed a good satisfaction degree of all study participants, as well as, after applying statistical analysis to the empirical data based on the time and effort required to complete each task, that though the Eclipse framework had a difficult user interface, they were still able to properly find and use previously unknown functionality ~\cite{lapolla2009empirical}.
+
+Coudo et al .~\cite{couto2013comets}used time series analysis to document the evolution of seventeen object-oriented metrics extracted from ten open-source systems (including Eclipse JDT Core and Eclipse PDE, UI), with the aim of assisting researchers in the area of software evolution and analysis. They called their empirical analysis COMETS (Code Metrics Time Series), and applied it to the number of all public attributes, private attributes, inherited attributes, lines of code, all methods, public methods, private methods, and inherited methods, coupling metrics; and weighted methods per class, depth of inheritance tree, number of children, coupling between objects, response for a class, and lack of cohesion in methods. They made their dataset public for the with an aim of assisting other researchers interested in source code evolution analysis.
+
+Hou ~\cite{hou2007studying} studied the evolution history of the Eclipse Java editor with the aim of tracking the design and evolution of all the features of the Java editor. These features, acquired over time, were identified from studying the ?New and Noteworthy? notes for several Eclipse releases and running several versions of the editor. The source code was used to study design evolution. In order to understand and identify how design supports and evolves with the implementation, addition, and modification of features, Hou classified the features of the Java editor into four major features namely: simple model-based features, advanced AST-based features, coding assists and, management and miscellaneous. He discovered the existence of a stable, proper, and clean layout of the Model-View-Controller (MVC)-based design, as well as careful follow-up and maintenance of the design from the beginning. He concluded that this made a positive contribution to the growth of the features of the editor.
+
+Wang ~\cite{hou2009analyzing} carried out a similar empirical study to Hou ~\cite{hou2007studying} on the Eclipse Java IDE in order to understand how IDE features change and mature. He manually quantitatively and qualitatively analyzed by coding 645 ?What?s New? entries in 8 consecutive releases of the Eclipse IDE and also characterized how the changes affected programmer usability of the IDE. His goal was to have an overall understanding of the kinds of services provided by the IDE over time as well as how features evolve to assist the programming tasks of users. He found that several new features that improved the usability of the IDE like explorer view to hierarchically navigate packages and members, the Javadoc , and greater automation like during the smart pasting of code snippets had been introduced during several releases of Eclipse.
+
+Dekel and Ross ~\cite{dekel2004eclipse} used the Eclipse plug-in architecture as a platform on which to study Gate-Keeper, their plug-in-based framework for managing interruptions among distributed software development teams, as well as promoting open lines of communication on important information and alerts about the project in order to achieve collaboration. Gate-Keeper, as a context-awareness and interruption management tool, is able to identify the activities and states (like debugging and testing) that occur in programming when using the Eclipse Integrated Development Environment (IDE) to relay messages among different members of a distributed software development team, in order to minimize the occurrence of distracting messages during highly involving activities and states. Gate-Keeper, as an Eclipse plug-in, provides extension points and relies on additional plug-ins to contribute configuration features (like receiving incoming interruption request events and returning decision events), which together build up to an interruption management configuration. Every interruption request is associated with a hierarchical registered interruption type (for example, chat requests and voice chats); and every request has a source agent made available through single-rooted multi-hierarchical registered agents (such as individual, automated, or team agents). Dekel and Ross aimed their research at aiding the developing of better mediation tools for software developers.
+
+Lhotak ~\cite{lhotak2004visualizing} integrated the Soot bytecode manipulation framework into the Eclipse IDE as a means of graphically visualizing the progress and output of programme analyses. They believed that the ability to see the progress and results of an analysis on programme expressions, statements, methods, fields, and classes would enable researchers, teachers, and students to more easily develop complicated programme analyses, to develop instructor-led demonstrations of analysis algorithms, and to better understand and debug implemented programme analyses respectively. They introduced three new types of tags (string, colour, and link) to Soot?s annotation framework to enable the annotated programme structures to be visualized in the Eclipse IDE. They also enabled the forward and backward visualization of data flow analysis by displaying a graphical representation of the control flow graph of a specific method under analysis.
+
+%\section{Overview of Clone Detection Techniques and Tools}
+%\subsection{Code Duplication}
+%During Software development, software developer often reuse code fragment by copying and then pasting it with or without modification in another location. This is a common practice when developing a very large software system. As a result software systems always contain sections of code that are very similar. This kind of code fragments is called code clones. The process of duplicating code results in sections of code that is either syntactically or semantically similar is referred to as ?code clones? or simply ?clones? ~\cite{Roy:comparisonEvaluation,CCCD-2013-KrutzS}.  Gabel et al ~\cite{Gabel08scalabledetection} define code clones as multiple code fragments which result in similar outputs when provided with the same input. Research has proved that in a large code base of any typical software system, about 7 to 30\% of the code is regarded as code clones~\cite{Roy:comparisonEvaluation,ray2013detecting,komondoor2002eliminating,yung2008new}.
+
+%Though code duplication has its advantages such as reducing development time and ensuring the quality of resulting software by reusing already tested code ~\cite{evans2009clone}, a lot of research has also illustrated its harmful effects. clones increase programme size and complexity~\cite{evans2009clone,komondoor2002eliminating}; increase maintenance costs by requiring modifications to be done several times~\cite{evans2009clone,komondoor2002eliminating,CCCD-2013-KrutzS,Roy:comparisonEvaluation,jiang2007deckard}; increase the number of bugs caused by inconsistent changes to cloned or ported code; can significantly increase the work to be done when enhancing or adapting code; can lead to system faults, for example Juergens ~\cite{juergens2009code} discovered that almost every second, unintentional inconsistencies due to changes in clones lead to a fault; can decrease a programmer?s understanding of the resulting code  and can lead to code being regarded as poor quality code during code quality analysis. Also a bug found in one clone code, need to be identified and removed in all other similar code occurrence.
+
+\section{Clone Terminology}
+\textbf{Code Fragment:} A code fragment (CF) is any sequence of code lines (with or without comments). It can be of any granularity, for example, function definition, begin-end block, or sequence of statements. A CF is identified by its file name and begin-end line numbers in the original code base.
+
+\textbf{Code Clone:} A code fragment CF2 is a clone of another code fragment CF1 if they are similar by some given definition of similarity i.e.
+f(CF1) = f(CF2) where f is the similarity function.Two fragments that are similar to each other form a clone pair (CF1, CF2), and when many fragments are similar, they form a clone class or clone group.
+
+\textbf{Clone Type:} As mentioned in the previous section, two pieces of code can be similar. There are two main kinds of similarities namely textual and functionality similarity. Also two code fragments do not have to be identical to be considered clones, but they can have also little differences. Roy and Cordy ~\cite{Roy:asurvey} classify clone type into four types namely;
+\begin{itemize}
+  \item \textbf{Type I:} code fragments are identical except for variations in white space, layout, and comments
+  \item \textbf{Type II:} code fragments are structurally and syntactically identical except for variations in identifiers, literals, types, layout, and comments.
+  \item \textbf{Type III:} code fragments are copies with further modifications. Statements can be changed, added, or removed in addition to variations in identifiers, literals, types, layout, and comments.
+  \item \textbf{Type IV:} two or more code fragments perform the same computation but are implemented through different syntactic variants
+\end{itemize}
+
+ The first three clone types are also called syntax clones.The degree of textual similarity between clone pairs/group decrease for example Type III clones are less similar to each other than Type I clones are. This further means that detecting Type III is hard than detecting Type II or Type I. Type IV clones are semantic clones and detection of these clone is hard compared to syntax clones.
+
+%\subsection{Clone Detection Techniques}
+%Many clone detection tools and techniques have been proposed in literature. Clone detection tools can be classified into five main categories based on the level of analysis applied to the source code. on the clone detection technique used. These include;
+
+%\textbf{Text-based Techniques:} Textual approaches do apply little or no transformation/normalization on the source code. In most cases, the raw source code is used directly in the clone detection tool before the actual comparison. Examples include NICAD,~\cite{roy2008nicad} Simian~\cite{Roy:comparisonEvaluation},SDD~\cite{lee2005sdd}.
+
+%\textbf{Token-based techniques:} These begin by transforming the source code into a sequence of lexical ?tokens? using compiler lexical analysis. The sequence is then scanned for duplicated subsequences of tokens and the corresponding original code is returned as clones. Token-based approaches are generally more robust over minor code changes such as formatting, spacing, and renaming than textual techniques. Examples include CCFinder~\cite{CCFinderX}, CP-Miner~\cite{li2006cp},iclone~\cite{gode2009incremental}, CPD~\cite{CPD} and D-CCFinder~\cite{livieri2007very}.
+
+%\textbf{Trees-Based Technique:}  These techniques find clones by finding similar sub-trees. Variable names, literal values in the source may be abstracted in the tree representation, allowing for more sophisticated detection of clones. Tools that use this approach include cloneDr~\cite{cloneDr}, Asta~\cite{evans2009clone}, Deckard~\cite{jiang2007deckard}, cloneDigger~\cite{peter2008duplicate}.
+
+%\textbf{Metrics-based Technique:} These gather a number of metrics for code fragments and then compare metrics vectors rather than code or ASTs directly. In in this technique, the source code is first parsed to an AST or control flow graph (CFG) on which the metrics are then calculated. Examples of tools that use this technique include SMC and Davey ~cite\cite{Roy:comparisonEvaluation}.
+
+%\textbf{Graph-based Techniques:} This approach use static program analysis to provide more precise information than simply syntactic similarity. Here a program is represented as a program dependency graph (PDG). The nodes of this graph represent expressions and statements, while the edges represent control and data dependencies. The search for clones is then turned into the problem of finding isomorphic sub-graphs. Examples of tools that use this technique to identify clones include Duplix and GPLAG ~cite\cite{Roy:comparisonEvaluation}.
+
+\section{Synthesis of the Literature and Gaps}
+The Eclipse framework has been utilized in several studies by Coudo et al.~\cite{couto2013comets}, Dekel and Ross~\cite{dekel2004eclipse}, Hou ~\cite{hou2007studying}, Wang ~\cite{hou2009analyzing}, Lapolla et al.~\cite{lapolla2009empirical}, and Lhotak~\cite{lhotak2004visualizing} as discussed in the previous sections. Extensive research has also been done by Businge ~\cite{businge:coevolution,Businge:GoodBad,businge:survival,Businge:compatibilityprediction,businge:developerloop}, regarding the coevolution of the Eclipse framework and its third-party plug-ins. Chilowicz et al.~\cite{chilowiczsyntax} simply use the Eclipse tree generator parser when testing their syntax fingerprinting algorithm to detect similar code in JDK 1.7. All the above mentioned work utilizing the Eclipse framework or the clone detection methodology is either aimed at assessing design, usability, and co-evolution of Eclipse components or error detection and the identification of inconsistencies in ported code respectively.
+
+Several important observations were made by Businge et al ~\cite{businge:coevolution},  (1) that Eclipse is a highly evolving framework (with 18 major releases over a decade); (2) that applications depending on frameworks have to co-evolve with their framework mainly to take advantages of the framework?s new features and enhanced functionality of existing interfaces; (3) that applications resulting from reusing non-APIs are difficult to upgrade to new Eclipse releases; and (4) that despite (3), the number of applications using non-APIs is quite large (44.2\% of Eclipse third-party plug-ins). There is therefore a great need to carry out research on whether the functionality desired by Eclipse application developers in non-APIs exists in APIs thus a need to identify clones in both. This would consequently allow for the development of applications using only the APIs, reduce maintenance time when upgrading to new Eclipse releases, and could even provide a means by which Eclipse can integrate more of the functionality implemented in non-APIs into APIs.
+
+From the research done so far, in relation to the Eclipse framework, there remain significant gaps in the research. First, existing research in clone evolution, how clones are introduced and removed across different releases of software, has been focused on Clone detection tools and clone genealogy, it has not been applied to the Eclipse framework, and specifically to study the clone genealogy of non-APIs, as they evolve along with new releases of Eclipse, for those which are later promoted to APIs, those which are dropped, and those which are maintained throughout several releases of Eclipse. Second, none of the related work detected clones for the purpose of identifying similar functionality between APIs and non-APIs, especially with the overall aim of recommending alternative APIs to third-party developers who use non-APIs. Both these research gaps are meant to be addressed by this research.
+
+There is a wide variety of clone detection techniques and tools that have been developed. These methods range from string comparison, metrics comparison, and program graph comparison strategies. Roy and Cordy~\cite{Roy:asurvey,Roy:comparisonEvaluation,Saeed:yingzou} carried out an intensive study on comparison and evaluation of clone detection tools and techniques. They organize the large amount of information into a coherent conceptual framework. They also provided examples on how one might use the results of their study to choose the most appropriate clone detection tool or technique in the context of a particular set of goals and constraints. Although we used NiCad tool to detect clones in eclipse releases, our research work is focussed on eclipse interfaces and it aims at investigating if there exist stable interfaces that provide the same functionalities as bad interfaces.
+
+Clone analysis on large system like Linux kernel have been reported. Casazza et al.~\cite{Casazza:identifyingClones} used  metrics based clone detection to detect cloned functions within the Linux kernel. They discovered that in general the addition of similar subsystems was done through code reuse rather than code cloning, and that more recently introduced subsystems tend to have more cloning activity . Antoniol et al. ~\cite{Antoniol:analysiscloneEvolution} did a similar study by evaluating the evolution of code cloning in the Linux, he found out that the structure of the Linux kernel did not appear to be degrading due to code cloning activities.
+
+Clone classification schemas have been previously suggested, usually based on the degree of similarity of segments of code and also the type of differences~\cite{Balazinska:MeasuringCloneBased,Mayrand:AutomaticDetectionClones}. These classifications are limited to function clones only . Balazinska et al ~\cite{Balazinska:MeasuringCloneBased}create a schema for classifying various cloned methods based on the differences between the two functions which are cloned. This differs from our work in that our classification scheme is based on clone type, visibility modifiers and also origin of cloned methods.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Methodology Sectionn%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\chapter{Methodology}\label{chapter:Methodology}
+\section{Chapter overview}
+
+In this section, we explain the methods we used to address research questions. We explain the source and data extraction techniques we used together with the tools we used to perform our investigations.
+
+\section{Source of Data Collection}
+Since 2001, the Eclipse SDK framework has been evolving from one release to another. At the time of writing this thesis (March, 2016), the framework has evolved into 55 releases, producing 19 major releases and 35 minor releases. In this research study, we considered all the major releases because major changes are made on API methods as the framework evolves from one major releases to another and also major releases provides long history on how the API methods have evolved. In our analysis, we downloaded the eclipse SDK source from the Eclipse Project website~\cite{eclipseProject:eclipsedownload}. Table~\ref{EclipseSrcTable} shows Eclipse major release, number of minor releases before the next major release and release date of the major releases.
+\begin{table}[H]
+\centering
+  \small
+   \begin{tabular}{|c|c|c|c} \hline
+ Major Releases&Minor Releases &Release Date\\
+ \hline
+E-1.0&0&07-Nov-01\\ \hline
+E-2.0&2&27-Jun-02\\ \hline
+E-2.1&3&27-Mar-03\\ \hline
+E-3.0&2&25-Jun-04\\ \hline
+E-3.1&2&27-Jun-05\\ \hline
+E-3.2&2&29-Jun-06\\ \hline
+E-3.3&3&25-Jun-07\\ \hline
+E-3.4&2&17-Jun-08\\ \hline
+E-3.5&2&11-Jun-09\\ \hline
+E-3.6&2&08-Jun-10\\ \hline
+E-3.7&2&13-Jun-11\\ \hline
+E-3.8&2&08-Jun-12\\ \hline
+E-4.0&0&27-Jul-10\\ \hline
+E-4.1&2&20-Jun-11\\ \hline
+E-4.2&2&08-Jun-12\\ \hline
+E-4.3&2&05-Jun-13\\ \hline
+E-4.4&2&06-Jun-14\\ \hline
+E-4.5&2&03-Jun-15\\ \hline
+E-4.6&2&06-Jun-16\\ \hline
+\end{tabular}
+\caption{Eclipse major releases, Number of minor releases before next major versions and release date of major Releases}
+\label{EclipseSrcTable}
+\end{table}
+
+\section{Identification of Similar code Fragment}
+To address research questions RQ1-RQ7, we used the concept of code clone detection technique to identify code clones that origins from both stable Interfaces and Unstable. To establish if there exist similar code fragments within a single and different Eclipse framework releases, we used an already existing open source tool called Nicad~\cite{James:Nicadtool}to detect different type of clones in the frameworks. NICAD is text-based, but exploits the benefits of tree-based structural analysis based on lightweight parsing to implement flexible pretty-printing, code normalization, source transformation and code filtering.  It takes as input a source directory or directories to be checked for clones and a configuration file specifying the normalization and filtering to be done, and provides output results in both XML form for easy analysis and HTML form for convenient browsing. NiCad handles a range of languages and normalizations and it is scalable to very large systems~\cite{roy2008nicad}.
+
+\subsection {Structure of NiCad Clone Detection Tool}
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.90]{phdThesis_Figures/Nicad_tool}
+    \caption{Structure of Nicad clone Detection Tool adopted from~\cite{James:Nicadtool}.}
+    \label{fig:Percentage:promoted:non-APIs}
+\end{figure}
+Clone detection using NICAD has three stages; the first stage involves parsing the input source to extract all fragments of a given granularity such as Methods/Functions or a block. Each extracted fragment (potential clone) is printed into a standard textual form. Spacing and line breaks are normalized and comments are removed to yield a form that exposes Type 1 (exact) clones as textually identical fragments [1].
+
+In the second stage, extracted fragments can be normalized, filtered or abstracted before comparison. For example, they can be transformed by renaming, standard parenthesization, or removal of declarations. In the Comparison stage, the extracted and normalized fragments are line wise compared using an optimized LCS (longest common subsequence) algorithm to detect similar fragments (clones).
+
+Comparison is parameterized by a difference threshold that allows for clone detection. For example, a difference threshold of 0.0 detects only exact clones, 0.1 detects those that may differ by up to 10\% of their normalized lines, 0.2 by up to 20\%, and so on. Nicad also has configuration files that can be used to detect specific clone types.  NiCad can be invoked from Linux terminals by simply giving the desired granularity, the language of the source files to be processed, the root directory of the source system to be analyzed and the configuration file for example: \emph{nicad3 functions  java eclipse-3.0 typeI}. Where function is the level of granularity, java indicates that we should only process java files and eclipse-3.0 is the eclipse version we want to analyze for clone whereas typeI indicates that we are specifically interested in finding Type-I clones.
+
+We subjected the 19 Eclipse SDK releases to the tool NiCad~\cite{James:Nicadtool} so as to extract clone reports. The clone report contains clone pairs where each clone pair has got a \emph{percentage of similarity} and the number of \emph{lines of code} of the clone. Each clone method in the clone pair has got a method signature and a \emph{source file} where the clone originates.
+
+\subsection {Nicad cross clone detection Tool}\label{nicad-cross tool}
+We used NiCad Cross-Clone tool~\cite{James:Nicadtool} to extract identical code fragments that exist in both the old and latest Eclipse releases. The tool takes as input two source directories i.e. systems  \texttt{S1} and \texttt{S2} and then produces an output reports that contains only clones of fragments of \texttt{S1} in \texttt{S2}.
+
+%%%%%%%%%%%Research question RQ1 data collection%%%%%%%%%%%%%%%%%
+\newpage
+\section{Data Extraction for Research question RQ1}
+Here we illustrate the methodology used to collect data for \emph{RQ1: What is the percentage of cloned Eclipse interfaces in the different Eclipse releases?}.
+\label{sec:percent_clones}
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.6]{phdThesis_Figures/Percentageof_Clones_diagram}
+    \caption{An example of a software system}
+    \label{fig:softwaresystem}
+\end{figure}
+
+Figure~\ref{fig:softwaresystem} show an example of a software system, \texttt{SS}, having three files, \texttt{f1}, \texttt{f2} and \texttt{f3}. \texttt{SS} comprises of four fully qualified methods, i.e., \texttt{f1.m1}, \texttt{f2.m1}, \texttt{f3.m1}, and \texttt{f3.m2}. Let us assume that method \texttt{m1} has been cloned in all the files. This means \texttt{SS} will have three fully qualified method clone pairs (cp), i.e.,  $cp1(f1.m1,f2.m1)$, $cp2(f1.m1,f3.m1)$, and $cp3(f2.m1,f3.m1)$. Hence we have three \emph{fully qualified clone pairs} and three \emph{fully qualified cloned methods}. We compute the percentage of clones in the software system \texttt{SS} as follows:
+
+\[\frac{\textrm{Number of fully qualified methods clones}}{\textrm{Total number of fully qualified methods in \texttt{SS}}}\%\]
+
+In the above example, software system \texttt{SS} would have a clone percentage of $3/4\%=75\%$. In this thesis, we shall frequently use the phrases \emph{fully qualified clone pairs} and \emph{fully qualified cloned methods}.
+
+\newpage
+\lstset{language=XML}
+\begin{lstlisting}[float=*, basicstyle=\small, caption=Nicad Clone Report, label=List:xmlreport]
+<clones>
+<clone nlines="74" similarity="93">
+    public void md1(Cl c1) {<source="Rx/org/eclipse/p1/sp1/pk1/f1.java">
+    public void md2(Cl c2) {<source="Rx/org/eclipse/p2/sp2/pk2/f2.java">
+</clone>
+<clone nlines="79" similarity="100">
+    void m3(){<source="Rx/org/eclipse/p3/internal/sp3/pk3/f3.java">
+    void m4(){<source="Rx/org/eclipse/p4/internal/sp4/pk4/f4.java">
+</clone>
+<clone nlines="90" similarity="95">
+    public C1 m5(){<source="Rx/org/eclipse/p5/internal/sp3/pk5/f5.java">
+    public C2 m6(){<source="Rx/org/eclipse/p6/sp3/pck6/f6.java">
+</clone>
+<clone nlines="90" similarity="100">
+    public int m7(){<source="Rx/org/eclipse/p7/internal/sp3/pk7/f7.java">
+    public int m8(){<source="Rx/org/eclipse/p8/sp8/pk8/f8.java">
+</clone>
+</clones>
+\end{lstlisting}
+
+In Listing~\ref{List:xmlreport} we show a representation of the XML clone report generated by subjecting Eclipse release \texttt{Rx} to the NiCad tool. To detect Type-I, Type-II and Type-III code clones, on \texttt{NiCad} tool on the command line. We run the source files and any of the following \texttt{NiCad} configuration files: \texttt{type1.cfg}, \texttt{type2.cfg} and \texttt{type3-2.cfg}. The output of the execution is an \texttt{XML} file like example in Listing~\ref{List:xmlreport}. Using the configuration file \texttt{type1.cfg} would produce an \texttt{XML} with only Type-I clones, \texttt{type2.cfg} would produces a combined file of both Type-I and Type-II and \texttt{type3-2.cfg} produces a combined file of all the three clone types. To isolate Type-II and Type-III, for simplicity, we use direct subtraction clone pair count i.e., Type-II alone would be the number of clones pairs in produced by \texttt{type2.cfg} less those produced by \texttt{type1.cfg} and Type-III alone would be the number of clones pairs in produced by \texttt{type3-2.cfg} less those produced by \texttt{type2.cfg}. Of course direct subtraction would yield errors in case the source files contain nested methods, thus nested clones would be missed. An alternative method to avoid errors introduction is to carry a step-wise subtraction by using the unix command \texttt{comm} to separate the two files. The step-wise subtraction (the \texttt{comm} command) as opposed to the direct subtraction produced a difference of less that $0.4\%$ on Eclipse 3.4 source release.
+
+\section{Data Extraction for Research question RQ2} \label{DifferentProject}
+In this section we explain how we collected the data for \emph{RQ2: What extent do the different cloned Eclipse interfaces originate from different Eclipse projects or same Eclipse project but different sub-projects?}. We extracted clone pairs with methods originating from different projects and clone pairs with methods originating from the same project but having different sub-projects. Eclipse files are always structured in a systematic way. All Eclipse project files start with a substring \texttt{org.eclipse}. For example, looking at Listing~\ref{List:xmlreport}, the project name always follows after the substring \texttt{org.eclipse} and the sub-project name follows after the project name. From this Eclipse file naming convention, one can easily determine the different categories of clones mentioned in this section. Furthermore, we collected data about Eclipse committers for six Eclipse projects namely: \texttt{JDT}, \texttt{SWT}, \texttt{UI}, \texttt{TEXT}, \texttt{PDE}, and \texttt{DEBUG}. For each of these Eclipse projects, we collected the names of the committers involved from the projects' websites.
+
+\section{Data Extraction for Research question RQ3}\label{ClonePairClassification}
+In this section, we explain how we collected data for \emph{RQ3: Can we find alternative stable APIs for unstable APIs?}. First we classified clone pairs in the NiCad report into three classifications namely:
+\begin{itemize}
+  \item \emph{non-API clone pairs}: If the interfaces the clone pair both originate from non-API files.
+  \item \emph{API clone pairs}: If the interfaces in the clone pair both originate from API files.
+  \item \emph{API-non-API clone pairs}: If one of the interfaces in the clone pair originates from an API file and the other from a non-API file.
+\end{itemize}
+ To extract data for the different clone pair classifications, i.e., API, non-API and API-non-API, this is how it was achieved; from Listing~\ref{List:xmlreport}, one can tell that the a method in a clone pair is an API or non-API or an API-non-API by looking for the substring \texttt{internal} in the source file where the methods originate. For example, the first clone pair in Listing~\ref{List:xmlreport} is an API classification, the second in a non-API classification and the third is an API-non-API classification. To determine the percentage of non-APIs that have alternative APIs offering the same functionality, we count the number of fully qualified non-API methods in classification API-non-API divided by the total non-API methods.
+
+\section{Data Extraction for Research question RQ4}\label{promoted non-APIs}
+In this section, we explain how we collected data for \emph{RQ4: What is the percentage of non-APIs promoted to APIs?} In Listing~\ref{List:xmlreport2} we show a representation of the XML clone report generated by subjecting Eclipse-1.0 and Eclipse-4.6 to the NiCad cross-clone tool as explained in sub section~\ref{nicad-cross tool}. The report contains clone pairs whose code fragment are identical(unchanged) or changed.
+\newpage
+\lstset{language=XML,breaklines=true}
+\begin{lstlisting}[float=*, basicstyle=\small, caption=Nicad Cross Clone Report, label=List:xmlreport2]
+<clones>
+    <clone nlines="74" similarity="100">
+        public void md1(Cl c1) {<source File="eclipse-1.0/org/eclipse/p1/sp1/pk1/f1.java">
+        public void md2(Cl c2) {<source File="eclipse-4.6/org/eclipse/p2/sp2/pk2/f2.java">
+    </clone>
+    <clone nlines="79" similarity="100">
+        void m3(){<source File="eclipse-1.0/org/eclipse/p3/internal/sp3/pk3/f3.java">
+        void m4(){<source File="eclipse-4.6/org/eclipse/p4/internal/sp4/pk4/f4.java">
+    </clone>
+    <clone nlines="90" similarity="100">
+        public C1 m5(){<source File="eclipse-1.0/org/eclipse/p5/internal/sp3/pk5/f5.java">
+        public C2 m6(){<source File="eclipse-4.6/org/eclipse/p6/sp3/pck6/f6.java">
+    </clone>
+</clones>
+\end{lstlisting}
+ From Listing~\ref{List:xmlreport2}, one can tell that a method in a clone pair is an API or non-API if it has a substring \texttt{internal} in the source file path where the methods originate. For example, the first and second clone pairs in Listing~\ref{List:xmlreport2} belong to API and non-API classification respectively. Whereas the third clone pair has the first and its second source file path originating from non-API and API respectively. The last clone pair indicates that the non-API was promoted to API in the newer release. To determine the percentage of non-APIs that were promoted to APIs, we count the number of non-API-API clone pairs in the output report divided by the total number of non-API methods in the old version as shown in the equation below:
+\[\frac{\textrm{Number of non-API-API clone pairs}}{\textrm{Total number of non-API methods in the old version}}\%\]
+
+\section{Data Extraction for Research question RQ5}\label{number-non-APIs}
+In this section, we explain how we collected data for research \emph{RQ5: what percentage of non-API exist in the different Eclipse Releases?}. Before the \texttt{NiCad} clone detection tool~\cite{James:Nicadtool} generates output clone report, the tool extracts and generates an XML report containing list of all methods in the software system. Since non-APIs can be distinguished from API methods by having a substring internal in their fully qualified name, we counted the number of methods with substring internal in the XML report containing all extracted methods. We used this report to obtain the total number of non-API methods in each Eclipse release.
+
+\section{Data Extraction for Research question RQ6}\label{number-stable-non-APIs}
+ In the extraction of data for \emph{RQ6: Can we find relative stable non-APIs during the evolution of Eclipse Framework?} We used \texttt{NiCad} cross-clone detection tool, a component of the \texttt{NiCad} clone detection tool~\cite{James:Nicadtool}, to extract identical code fragments that exist between two Eclipse releases--$E_{old}$ and $E_{new}$. The tool takes as input the two source directories of the Eclipse releases and produces an output report that contains only clones of fragments of $E_{old}$ in $E_{new}$.
+
+ When carrying out the experiments, we are aware that in the new Eclipse releases, there exist non-APIs which were introduced in the earlier Eclipse releases. Therefore, before carrying out the NiCad cross-clone, we first eliminate the old non-APIs in the new release and remain with only the newly introduced non-APIs. For example, if we are going to carry out a \texttt{NiCad} cross-clone between Eclipse 3.0 and the later Eclipse releases, 3.1, 3.2, 3.3, etc, this is how we would proceed with the experiments: 1) We extract sets of all the fully qualified names of the non-API methods in earlier Eclipse releases (i.e., 1.0, 2.0, and 2.1). 2) We then extract a set all the fully qualified names of the non APIs methods in the current Eclipse release of interest--Eclipse 3.0. 3) We then eliminate all the old non-APIs methods of all earlier releases from Eclipse 3.0. 4) After performing step 3), Eclipse 3.0 set contains only the newly introduced non-API methods. We renamed this set with a new name called \texttt{Eclipse-3.0-non-API-new}. 5) We then carry out \texttt{NiCad} cross-clone between \texttt{Eclipse-3.0-non-API-new} and the later Eclipse releases and examine existence of clones in each of the successive Eclipse releases.
+
+  We only extracted Type-I and Type-II clones. In Listing~\ref{List:xmlreport2} we show an illustration of the XML clone report generated by subjecting Eclipse release 1.0 and Eclipse release 4.6 to the \texttt{NiCad} cross-clone tool. From Listing~\ref{List:xmlreport2}, one can tell that a method in a clone pair is an API or non-API by looking out for the substring \texttt{internal} in the source file path where the methods originate. For example, the first clone pair in Listing~\ref{List:xmlreport2} both methods are APIs. The second clone pair in the listing, both methods non-APIs methods. This implies that the method \texttt{p4.internal.sp4.pk4.F4.m2()} that was first introduced in Eclipse framework in the very first release--Eclipse 1.0 is still unchanged in the current Eclipse release 4.6. We are aware that our results are threatened by construct validity. This is because when an old non-API method has changed name in the current Eclipse release, it will be considered as a newly introduced non-API method.
+
+\subsection{Age of stable non-API methods}
+ We obtained the age of the stable non-API methods of the old Eclipse version that exist in Eclipse-4.6 by calculating the difference between the release date of latest version Eclipse-4.6 and that of the old version. For instance, Eclipse-1.0 was released on 07-November-2001 whereas Eclipse-4.6 was released on 06-June-2016. Therefore all the stable non-API methods of Eclipse-1.0 found in Eclipse-4.6 have stayed unchanged for over the last 15 years.
+
+\section{Data Extraction for Research question RQ7}\label{number of old alternative non-APIs for new ones}
+In this section, we explain how we collected data for \emph{RQ7: Can we find old stable non-APIs as alternatives for new non-APIs?} Before carrying out the experiments, it is important to note that the new Eclipse releases are built from old Eclipse release thus it will contain both old and the newly introduced non-APIs. Therefore, before carrying out the experiment, we first identify the old non-APIs in the new release and rename their file names with a new name by appending the Eclipse release version on the old file name as shown in listing ~\ref{List:xmlreport-4.6}.
+
+\lstset{language=XML}
+\begin{lstlisting}[float=*, basicstyle=\small, caption=Nicad Clone Report for Labeled Eclipse-4.6, label=List:xmlreport-4.6]
+<clones>
+    <clone nlines="79" similarity="100">
+        void m3(){<source="Eclipse-4.6-Labeled/org/eclipse/p3/internal/sp3/pk3/f3_1.0.java">
+        void m4(){<source="Eclipse-4.6-Labeled/org/eclipse/p4/internal/sp4/pk4/f4_4.6.java">
+    </clone>
+    <clone nlines="90" similarity="100">
+        public C1 m5(){<source="Eclipse-4.6-Labeled/org/eclipse/p5/internal/pk5/f5_3.0.java">
+        public C2 m6(){<source="Eclipse-4.6-Labeled/org/eclipse/p6/internal/pck6/f6_4.6.java">
+    </clone>
+    <clone nlines="90" similarity="100">
+        public int m7(){<source="Eclipse-4.6-Labeled/org/eclipse/p7/internal/pk7/f7_2.1.java">
+        public int m8(){<source="Eclipse-4.6-Labeled/org/eclipse/p8/internal/pk8/f8_4.6.java">
+    </clone>
+</clones>
+\end{lstlisting}
+
+For example, if we are going to carry out clone detection on Eclipse 3.0, this is how we would proceed with the experiments: 1) we extract sets of all the fully qualified names of the non-API methods in earlier Eclipse releases (i.e., 1.0, 2.0, and 2.1). 2) We then extract a set of the fully qualified names of the non APIs methods in the current Eclipse release of interest i.e. Eclipse 3.0. 3) We then identify and rename the old non-APIs methods file name of all earlier releases in 3.0 by appending the old file name with its corresponding version number. 4) After performing step 3), Eclipse 3.0 set will contains both labeled and unlabeled file names. The unlabeled files are now the newly introduced file names. 5) We then rename files without version number by appending version number 3.0 on their file names. Now all files in Eclipse-3.0 set are labelled with their respective version number. We now rename Eclipse-3.0 set with a new name called Eclipse-3.0-Labelled. We repeated these operations for all Eclipse releases under investigation.
+
+We then carry out clone detection on the newly labeled Eclipse releases to examine existence of clones in each Eclipse release. We only extracted Type-I and Type-II clone pairs, this is because both clone types have clone pairs with 100\% similarity thus identical . In listing ~\ref{List:xmlreport-4.6} we show an illustration of the XML clone report generated by subjecting Eclipse-4.6-Labeled to the NiCad clone detection tool. From listing ~\ref{List:xmlreport-4.6}, For example, the first clone pair has the first and second method originating from Eclipse-1.0 and Eclipse-4.6 as shown by files f3-1.0.java and f4-4.6.java respectively. Still from the same clone pair, the method m4 is a new method introduced in Eclipse-4.6 but it has an identical old alternative m3 which originated from Eclipse-1.0. We counted the number of clone pairs with both old and new methods in the clone report to establish the total number of old stable non-APIs with alternatives new non-APIs.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Results section %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Results and Discussions}\label{chapter:Research_Results}
+\section{Chapter overview}
+In this section we present the results and discussion of our study.
+
+\section{Percentage of Clones in Eclipse}
+RQ1. What is the percentage of cloned Eclipse interfaces in the different Eclipse releases?
+\subsection{Results}
+\begin{table}
+  \centering
+  \small
+    \begin{tabular}{|c|c|c|c|c|c|} \hline
+        &Cloned methods&Total methods \\ \hline
+        Mean&15,640&171,665\\ \hline
+        Median&17,050&192,672\\ \hline
+        Min&3,482&40085\\ \hline
+        Max&22,646&238,919\\ \hline
+    \end{tabular}
+  \caption{Summary statistics for number of fully qualified cloned methods and the total fully qualified methods for all the Eclipse releases}
+  \label{tab:stat:clone_percentage}
+\end{table}
+Based on the methodology we presented in Section~\ref{sec:percent_clones} we discovered that the percentage of clones in the different Eclipse releases range from $8.0\%$ to $9.8\%$.
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.45]{pdf_img/Visibility_unique_cloned_method_percentage}
+    \caption{A graph showing the percentage of fully qualified cloned methods for the different method access level modifiers in each Eclipse release, respectively.}
+    \label{fig:access_levels}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.45]{pdf_img/Unique_Cloned_method_Clone_Types_Percentage}
+    \caption{A graph showing the percentage of fully qualified cloned methods for the different clone types in each Eclipse release, respectively.}
+    \label{fig:clone_types}
+\end{figure}
+
+ In Table~\ref{tab:stat:clone_percentage} we show the summary statistics corresponding to the percentages of clones in all the Eclipse releases. Column--\emph{Cloned methods} in Table~\ref{tab:stat:clone_percentage} shows the summary statistics of the fully qualified cloned methods while column--\emph{Total methods} shows the summary statistics total number of fully qualified methods in all the Eclipse releases. In Figures~\ref{fig:access_levels} and~\ref{fig:clone_types}, we present additional results corresponding to percentage of clones in Eclipse. In these figures we present graphs of clone percentages corresponding to fully qualified cloned methods for the different access level modifiers and the different clone types, respectively, for each of the Eclipse SDK releases. In Figure~\ref{fig:access_levels}, for each Eclipse release there are four bars. The first bar indicates the percentage of fully qualified cloned methods that are have an access level modifier of \texttt{public}, followed by \texttt{protected}, \texttt{private}, and \texttt{default}, respectively. In Figure~\ref{fig:clone_types}, for each Eclipse releases there are three bars. The first bar indicates the percentage of fully qualified cloned methods corresponding to Type-I clones, followed by Type-II clones and Type-III clones, respectively.
+
+\subsection{Discussion}
+First, as can be seen, our results of the percentage of cloned methods ranging from $8.0\%$ and $9.8\%$ for the different Eclipse releases. Indeed these results correspond to what has been reported in literature by Chanchal, Cordy and Rainer ~\cite{Roy:comparisonEvaluation,Roy:asurvey}. Second, from Figure~\ref{fig:access_levels} we can observe that the \texttt{public} level access modifier has a very high percentage relative to the other modifiers. This is not surprising because Eclipse is a framework with interfaces that is designed to be used by other applications. These findings are interesting because interface users reuse framework functionality by calling the calling \emph{methods interfaces} having the access level modifier \texttt{public} as these methods are outside the framework. Third, in Figure~\ref{fig:clone_types} we observe that Type-III clones have a much higher percentage than Type-I and Type-II clones. The reason for this observation is that unlike Type-III, Type-I and Type-II clones do not allow any differences at all. If a line has changed in a clone, that clone will not be reported.
+
+Lastly, in the clone evolution perspective, looking at Figures~\ref{fig:access_levels} and~\ref{fig:clone_types} we observe a similar trends in the percentage of clones across all the Eclipse releases studied. There is only a slight change change on Eclipse release 4.0. The reason observed change is that Eclipse developers assessed the a architecture of Eclipse 3.x and discovered that in future, this architecture might be difficult to incorporate new technology, encourage growth of the community and attract new contributors. For this reason, Eclipse developers changed the architecture to address the identified shortcomings from 4.0 onwards.
+
+\section{Percentage of Clone pairs in different projects}
+
+RQ2. What extent do the different cloned Eclipse interfaces originate from different Eclipse projects or originate from same Eclipse project but different sub-projects?
+
+\subsection{Results}
+\begin{table}[!htbp]
+  \centering
+  \footnotesize
+    \begin{tabular}{|l|r|r|r|} \hline
+        &Same proj/sub-proj&Diff proj&Same proj/diff sub-proj \\ \hline
+        Mean&165,271&2,594&3,800\\ \hline
+        Median&185,817&2,904&4,254\\ \hline
+        Min&38,721&419&945 \\ \hline
+        Max&230,024&3,685&5,210 \\ \hline
+    \end{tabular}
+  \caption{The summary statistics of the fully qualified cloned methods in clone pairs originating from the following categories: i) same project and sub-project--\emph{column Same proj/sub-proj}, ii) different projects--\emph{column Diff proj}, and iii) same project but different sub-projects--\emph{column Same proj/diff sub-proj}, for all the Eclipse releases.}
+  \label{tab:stat:proj_method}
+\end{table}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.45]{pdf_img/Clones_Diff_project_subproject}
+    \caption{A graph showing the percentage of fully qualified method clone pairs originating from different Eclipse projects and those originating from same project but different sub-projects.}
+    \label{fig:project_sub-project:clone-pair}
+\end{figure}
+
+\begin{table}
+  \centering
+  \footnotesize
+    \begin{tabular}{|l|r|r|r|} \hline
+        &Same proj/sub-proj&Diff proj&Same proj/diff sub-proj \\ \hline
+        Mean&20,586&2,713&10,671\\ \hline
+        Median&20,001&3,121&12,151\\ \hline
+        Min&13,652&105&799\\ \hline
+        Max&29,966&4,345&16,896\\ \hline
+    \end{tabular}
+  \caption{The summary statistics of the fully qualified method clone pairs with methods originating from the following categories: i) same project and sub-project--\emph{column Same proj/sub-proj}, ii) different projects--\emph{column Diff proj}, and iii) same project but different sub-projects--\emph{column Same proj/diff sub-proj}, for all the Eclipse releases.}
+  \label{tab:stat:proj_method_clone_pairs}
+\end{table}
+
+
+\begin{table}
+  \centering
+  \footnotesize
+    \begin{tabular}{|l|c|} \hline
+        \textbf{Project Involvement}&\textbf{\# of Committers} \\ \hline
+        1 Project&111\\ \hline
+        2 Projects&22\\ \hline
+        3 Projects&11\\ \hline
+        4 Projects&3\\ \hline
+        5 Projects&3 \\ \hline
+        6 Projects&1\\ \hline
+    \end{tabular}
+  \caption{Frequency of committers involved in different Eclipse Projects.}
+  \label{tab:stat:frequency}
+\end{table}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.45]{pdf_img/Method_project_subproject}
+    \caption{A graph showing the percentage of fully qualified cloned methods in clone pairs originating from different Eclipse projects and those originating from same project but different sub-projects.}
+    \label{fig:project_sub-project:method}
+\end{figure}
+
+In Tables~\ref{tab:stat:proj_method} to~\ref{tab:stat:frequency} and Figures~\ref{fig:project_sub-project:clone-pair} and~\ref{fig:project_sub-project:method} we present the results of RQ2. Table~\ref{tab:stat:proj_method_clone_pairs} we show the different summary statistics corresponding to fully qualified method clone pairs with methods originating from different categories. In Table~\ref{tab:stat:proj_method} we present the summary statistics of the fully qualified cloned methods in clone pairs originating from the different categories. In Table~\ref{tab:stat:frequency} we present statistics of Eclipse core developers committing in one or more Eclipse projects. A total of 151 involved in at least one the six Eclipse projects presented in Section~\ref{DifferentProject} were collected. Column--\emph{Project Involvement} shows the number of projects that committers are involved in one of more projects and column--\emph{\# of Committers} shows the corresponding number of committers involved. For example, each of 111 committers were involved in only one of the six Eclipse projects, 22 of the committers were involved in two of the six Eclipse projects and one committer was involved in all the six Eclipse projects.
+
+In Figure~\ref{fig:project_sub-project:clone-pair} we present the percentages of fully qualified method clone pairs in each Eclipse release corresponding to summary statistics of Table~\ref{tab:stat:proj_method_clone_pairs}. Each of the Eclipse releases in Figure~\ref{fig:project_sub-project:clone-pair} has got two bars (bottom and top) representing the percentage of the two clone pair categories. The percentages of each of the two clone pair categories in a given each Eclipse release, say \texttt{E-Rx}, is computed as a fraction of the total number of clone pairs in \texttt{E-Rx}. In Figure~\ref{fig:project_sub-project:method} we present the percentages of fully qualified cloned methods in clone pairs, for each Eclipse release, corresponding to the summary statistics in Table~\ref{tab:stat:proj_method}. Each Eclipse release in Figure~\ref{fig:project_sub-project:method} has got two bars (bottom and top) representing the percentage of the two clone pair categories. The percentages of each of the two cloned method categories in a given each Eclipse release, say \texttt{E-Rx}, is computed as a fraction of the total number of fully qualified methods in \texttt{E-Rx}.
+
+\subsection{Discussion}
+In this section we discuss the findings of research question RQ2. As can be seen from Figure~\ref{fig:project_sub-project:clone-pair}, we observe that we have up to $40-50\%$ clone pairs of the total clone pairs identified in Eclipse with methods in clone pairs originating from different projects/sub-projects. In Figure~\ref{fig:project_sub-project:method} we have an average of $3.7\%$ cloned methods as a fraction of the total methods in Eclipse with methods in clone pairs originating from different projects/sub-projects. On further investigation to the possible cause of this behaviour, we discovered that some committers are involved in more than one Eclipse project as presented in Table~\ref{tab:stat:frequency}. It is possible that these committers copy code from one Eclipse project they are involved in to other Eclipse projects they are involved in.
+\newpage
+\section{Clone pair Classifications}
+
+RQ3. To what extent can Eclipse interface providers/users benefit from the cloned Eclipse interfaces to address the interface incompatibilities in new Eclipse releases?
+
+\subsection{Hypothesis Testing}
+As we stated in Section~\ref{sec:intro}, in the survey we carried out to discover why developers use non-APIs~\cite{businge:CSMR2013}, one of our findings was that Eclipse interface users find the functionality they require manually. Because of the manual search, we thought that since Eclipse is a very large complex software systems with many committers, it is possible that there could be alternative APIs offering the same functionality as the non-APIs. Based on the claims of the Eclipse developers, we come up with the following hypothesis.
+\begin{itemize}
+\item $H_0$: \emph{There is no significant number of APIs offering the same or similar functionality as the non-APIs in all Eclipse releases};
+\item $H_a$: \emph{There is a significant number of APIs offering the same or similar functionality as the non-APIs in all Eclipse releases}.
+\end{itemize}
+
+\subsection{Results}
+In this section we present the the results of research question RQ3. Tables~\ref{tab:method_API_non-API} to~\ref{tab:stat:classification_method} and in Figures~\ref{fig:method_API_non-API} to~\ref{fig:API-non-API-method} we present our results. In Table~\ref{tab:method_API_non-API} we present summary statistics corresponding to the evolution of the number of methods in Eclipse releases. In Tables~\ref{tab:stat:classification:clone_pair} and~\ref{tab:stat:classification_method} we present summary statistics for the fully qualified method clone pairs and fully qualified cloned methods for the different clone pair classifications, respectively, for all the Eclipse releases. In Figure~\ref{fig:method_API_non-API} we present the percentages of methods originating from the two Eclipse interface categories, APIs and non-APIs, corresponding to the summary statistics in Table~\ref{tab:method_API_non-API}. In Figure~\ref{fig:stat:classification:clone_pair} we present percentages of the fully qualified method clone pairs (as a fraction of the total clone pairs) in each classification for the different Eclipse releases, corresponding to the summary statistics in Table~\ref{tab:stat:classification:clone_pair}. Each Eclipse release in Figure~\ref{fig:stat:classification:clone_pair} has got three bars. The first bar corresponds to percentage of fully qualified clone pairs in classification--\emph{non-APIs}, the next two bars show the percentages for \emph{APIs} and \emph{API-non-API} classification, respectively. In Figure~\ref{fig:stat:classification:method} we present percentages of the fully qualified cloned methods (as a fraction of the total methods in Eclipse), in each classification for the different Eclipse releases, corresponding to the summary statistics in Table~\ref{tab:stat:classification_method}. Each Eclipse release in Figure~\ref{fig:stat:classification:method} has got three bars. The first bar corresponds to percentage of fully qualified cloned methods in classification--\emph{non-APIs}, the next two bars show the percentages for \emph{APIs} and \emph{API-non-API} classification, respectively. In Figure~\ref{fig:API-non-API-method} we present the results of our main research question RQ3. In the figure, we show percentages of fully qualified non-API methods for clone Type-I, II and III in the different Eclipse releases.
+
+\begin{table}
+  \centering
+  \footnotesize
+    \begin{tabular}{|l|r|r|} \hline
+        &non-API&API \\ \hline
+        Mean&122,665&54,353\\ \hline
+        Median&144,401&55,054\\ \hline
+        Min&30,766&25,961\\ \hline
+        Max&160,680&78,239\\ \hline
+    \end{tabular}
+  \caption{The summary statistics of the fully qualified methods originating from non-APIs and APIs in each of the Eclipse releases.}
+  \label{tab:method_API_non-API}
+\end{table}
+
+\begin{table}
+  \centering
+  \footnotesize
+    \begin{tabular}{|l|r|r|r|} \hline
+        &non-API&API&API-non-API \\ \hline
+        Mean&5,082&2,438&1,398\\ \hline
+        Median&5,831&2,375&1,509\\ \hline
+        Min&1,788&277&175\\ \hline
+        Max&6,502&5,572&2,059\\ \hline
+    \end{tabular}
+  \caption{The summary statistics of the \texttt{public} fully qualified cloned methods for the different clone pair classifications in each of the Eclipse releases, respectively.}
+  \label{tab:stat:classification_method}
+\end{table}
+
+\begin{table}
+  \centering
+  \footnotesize
+    \begin{tabular}{|l|r|r|r|} \hline
+        &non-API&API&API-non-API \\ \hline
+        Mean&11,517&7,447&2,017\\ \hline
+        Median&11,646&7,456&2,255\\ \hline
+        Min&9,458&250&150\\ \hline
+        Max&13,622&13,730&3,184\\ \hline
+    \end{tabular}
+  \caption{The summary statistics of the \texttt{public} fully qualified method clone pairs for the different clone pair classifications in each of the Eclipse releases, respectively.}
+  \label{tab:stat:classification:clone_pair}
+\end{table}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.45]{pdf_img/Methods_APIs_non-APIs}
+    \caption{A graph showing the percentages of the fully qualified methods originating from non-APIs and APIs for the different Eclipse releases.}
+    \label{fig:method_API_non-API}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.45]{pdf_img/Clone_pair_Classification_graph}
+    \caption{A graph showing the percentages of the \texttt{public} fully qualified method clone pairs for the different clone pair classifications in the different Eclipse releases, respectively.}
+    \label{fig:stat:classification:clone_pair}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.45]{pdf_img/Public_Cloned_fully_qualified_method_Classification}
+    \caption{A graph showing the percentages of the \texttt{public} fully qualified cloned methods for the different clone pair classifications in the different Eclipse releases, respectively.}
+    \label{fig:stat:classification:method}
+\end{figure}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.45]{pdf_img/API-non-API-Clone-Types-Public-Methods}
+    \caption{A graph showing the percentages of the \texttt{public} fully qualified non-API methods having similar functionality as the APIs in the different Eclipse releases, respectively.}
+    \label{fig:API-non-API-method}
+\end{figure}
+
+
+\subsection{Discussion}
+In this section, we discuss the findings of research question RQ3. We observe a number of findings: First, looking at Figure~\ref{fig:method_API_non-API} we observer that on average, the percentages of non-API methods are twice as much those API Methods along the evolution of Eclipse. Comparing the actual numbers and the percentages, we observe that non-API and API methods are growing. This means in every release there the rate at which new non-APIs are introduced in new Eclipse releases, is much higher compared to the rate at which the APIs are introduced. This tells us that there is an introduction of more new non-APIs files compared to the graduation of non-APIs files to APIs files. It is also possible that there is a very low graduation of non-APIs to APIs. Second, looking at Figures~\ref{fig:stat:classification:clone_pair} and~\ref{fig:stat:classification:method}, in general, we observe that the highest percentages are observed in classification non-API, followed by API and finally API-non-API. Comparing the percentages of API and non-API in Figure~\ref{fig:stat:classification:method} we observe that we constantly have higher percentages of non-API cloned methods in comparison to those of APIs in all the Eclipse releases.
+
+A plausible explanation for this observation could be as follows; in RQ2 we observed that some clone pairs have methods originating from different projects and these projects are being developed by different groups committers. It is possible that these committers decide to re-implement the functionality of non-APIs from other projects in their own code for fear that these non-APIs may disappear or change in the next Eclipse release. Third, looking at Figure~\ref{fig:API-non-API-method} we can observe that the percentage of non-API methods that we can find alternative same or similar API methods is very low, i.e., less than $1\%$ combined for clone Type-I,II, and III for all the Eclipse releases studied. Based on these results, in this study, we confirm our hypothesis, $H_0$, that indeed \emph{there are no significant numbers of APIs offering the same or similar functionality as the non-APIs in all Eclipse releases}.
+
+Based on the results of the hypothesis and the fact that Eclipse offers twice as much functionality in the non-APIs than in the APIs, Eclipse interface users are right to state that the reason they use non-APIs is because the functionality they require can only be found in non-APIs. Indeed, the interface users have no choice but to use the non-APIs as opposed to implementing their own interfaces from scratch or copying the non-API code into their own code. To reduce on the challenges faced by the Eclipse interface users, our recommendation Eclipse interface providers is that, they should expedite the graduation of non-APIs to APIs. Although the results we have discovered in this study about alternative APIs for the non-APIs are insignificant, Eclipse providers can use them as a starting point to provided APIs from non-APIs for the Eclipse releases they still support. For each of the higher releases of Eclipse, the following are the average numbers of API methods alternatives for non-API methods we have discovered: $100$  for Type-I, $150$ for Type-II, and $1,000$ for Type-III. It would cost less effort to convert non-APIs we have found to APIs than doing it from scratch.
+
+\section{Promoted Non-APIs to APIs}
+In this section, we discuss the results of research question \emph{RQ4: What is the percentage of non-APIs promoted to APIs?}
+\subsection{Hypothesis Testing}
+From our previous research~\cite{kawuma2016can}, we discovered that the rate at which new non-API methods are introduced in new Eclipse releases is much higher compared to the rate at which API methods are introduced. It is possible that there is a very low graduation of the already existing non-API methods to APIs. Based on this claim, we came up with the following hypothesis.
+ \begin{itemize}
+\item $H_0$: \emph{There is no significant number of non-API methods promoted to API between subsequent Eclipse releases};
+\item $H_a$: \emph{There is significant number of non-API methods promoted to API between subsequent Eclipse releases}.
+\end{itemize}
+\subsection{Results}
+based on the methodology we discussed in section~\ref{promoted non-APIs}. Table~\ref{promotednon-APIStatistics} present the number of non-API methods that were promoted to API methods between the subsequent Eclipse releases together with the total number of non-API methods in the old Eclipse release.
+\begin{table}[H]
+\centering
+  \small
+   \begin{tabular}{|c|c|c|c} \hline
+ &Promoted&Total non-API Methods\\
+ &non-API methods&in old version\\
+ \hline
+    Min&179&30,766\\ \hline
+    Max&794&161,267\\ \hline
+    Mean&564&123,870\\ \hline
+    Median&609&147,229\\ \hline
+   \end{tabular}
+  \caption{summary Data statistics for the number of promoted non-API Methods, and number of non-API methods in old selected Eclipse releases}
+  \label{promotednon-APIStatistics}
+\end{table}
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.50]{pdf_img/promoted_non_APIs_graph}
+    \caption{A graph showing the percentage of promoted non-API methods to API methods between subsequent Eclipse release.}
+    \label{fig:Percentage:promoted:non-APIs}
+\end{figure}
+In addition to this, figure~\ref{fig:Percentage:promoted:non-APIs} show the percentage of promoted non-API methods between subsequent Eclipse major releases.
+
+\subsection{Discussion}
+From table~\ref{promotednon-APIStatistics}, we observe that the average number of promoted non-API methods is 564 and Looking at figure~\ref{fig:Percentage:promoted:non-APIs}, the percentage of promoted non-API to APIs methods ranges between 0.24\% to 0.63\% which is less than 1\%. Base on these results in this study, we confirm our hypothesis $H_0$: that indeed \emph{there is no significant number of non-API methods promoted to API between Eclipse releases}. Our findings confirms with previous results by Andre Hora et al. ~\cite{APIPromotion_hora2016}, they discovered that 7\% of 2,277 of internal interfaces are promoted to public interfaces. They also found that the promoted interfaces have more clients.
+
+\section{Non-API in different Eclipse Releases}
+In this section, we discuss the results of research question \emph{RQ5: what percentage of non-API exist in the different Eclipse Releases?}
+\subsection{Results}
+\begin{table}[!htbp]
+  \centering
+    \begin{tabular}{|l|r|r|r|} \toprule
+    \textbf{Statistic}	&	\textbf{\# non-APIs}	&	\textbf{Total}	&	\textbf{\% of non-APIs}	\\ \hline
+Minimum	&	 30,766 	&	 40,085 	&	60	\\
+1st Quartile	&	 105,723 	&	 146,937 	&	63	\\
+Median	&	 148,177 	&	 216,692 	&	69	\\
+3rd Quartile	&	 153,210 	&	 239,452 	&	71	\\
+Maximum	&	 161,267 	&	 254,763 	&	77	\\
+Mean	&	 125,310 	&	 188,544 	&	67	\\ \bottomrule
+  \end{tabular}
+  \caption{Summary statistics of the number of non-APIs and total number of interfaces in different Eclipse releases}
+  \label{tab:summary}
+\end{table}
+
+Table~\ref{tab:summary} we present the summary statistics of the number of Eclipse non-APIs in the different Eclipse releases. Column--\emph{\# non-APIs} contains the summary statistics of the number of non-APIs in the different releases. Column--\emph{Total} contains the summary statistics of the total interfaces (i.e., APIs and non-APIs) in the different Eclipse releases. Column--\emph{\% of non-APIs} contains summary statistics of the percentage of non-API methods in the different Eclipse releases. Looking at Table~\ref{tab:summary}, we observe from the mean and median having $188,544-67\%$ and $216,692-69\%$, respectively. The observation tells us that this is a considerably a large amount of non-API methods in the different Eclipse releases.
+
+\begin{figure}[H]
+   \centering
+    \includegraphics[scale=0.85]{pdf_img/Number_non-APIs}
+    \caption{Percentage of non-APIs in the different Eclipse releases.}
+    \label{fig:non-API-percentage}
+\end{figure}
+
+ Figure~\ref{fig:non-API-percentage} shows the percentage of non-APIs present in each Eclipse release. We observe from Figure~\ref{fig:non-API-percentage} that we have over 60\% non-API methods of the total interfaces in each of the analysed 19 Eclipse releases. The Eclipse framework having evolved for over 15 years producing a major release every year with the aim of providing new interfaces and improving on the quality of existing interfaces to application developers, one would expect that interfaces labelled unstable to be at least reducing. However, from our observations the rate at which the non-API methods are reducing seems to be very slow. We tried to insert a trend-line in Figure~\ref{fig:non-API-percentage} and the best trend line seemed to follow a either power function or a logarithmic function. This tells us that indeed the rate at which the non-API methods are reducing is indeed very slow.
+\subsection{Discussion}
+our preliminary investigation we carried out in our previous research, we observed that there is a lot of non-APIs in the different Eclipse releases in new Eclipse releases compared to the APIs. From the discussion of results in this section we have indeed confirmed our earlier preliminary observation in Kawuma et al.~\cite{kawuma2016can} that indeed the introduction of non-APIs in the Eclipse releases is much higher than that of APIs. The findings of this research question gave us a very good motivation to investigate research question RQ6 as presented in the next section.
+
+\section{Stable non-APIs different Eclipse Releases}
+In this section, we discuss the results of research question \emph{RQ6: Can we find relative stable non-APIs during the evolution of Eclipse Framework?} In Tables~\ref{tab:number-stability} to~\ref{tab:perctage-stability-II} present the results of analysis of RQ6. In Table~\ref{tab:number-stability}, we present the number of stable non-APIs in a given Eclipse release observed in successive Eclipse releases. The first row of Table~\ref{tab:number-stability} shows the different Eclipse old releases ($E_{old}$) where we carried \texttt{NiCad} cross-clones with successive Eclipse new releases ($E_{new}$).
+
+\begin{table*}
+  \centering
+  \begin{adjustbox}{max width=\textwidth,center}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|} \toprule
+	&	E-1.0	&	E-2.0	&	E-2.1	&	E-3.0	&	E-3.1	&	E-3.2	&	E-3.3	&	E-3.4	&	E-3.5	&	E-3.6	&	E-3.7	\\ \hline
+Total	&	30,766	&	43,996	&	57,084	&	78,266	&	96,529	&	114,916	&	125,415	&	148,177	&	150,529	&	158,548	&	160,849	\\ \hline
+New	&	30,766	&	19,612	&	11,366	&	26,922	&	22,487	&	27,764	&	24,734	&	36,037	&	43,437	&	45,849	&	43,171	\\  \hline
+E-2.0	&	 2,929 	&		&		&		&		&		&		&		&		&		&		\\
+E-2.1	&	 2,450 	&	 6,505 	&		&		&		&		&		&		&		&		&		\\
+E-3.0	&	 1,385 	&	 3,840 	&	 7,345 	&		&		&		&		&		&		&		&		\\
+E-3.1	&	 978 	&	 2,472 	&	 4,325 	&	 11,431 	&		&		&		&		&		&		&		\\
+E-3.2	&	 794 	&	 2,032 	&	 3,453 	&	 8,535 	&	 19,264 	&		&		&		&		&		&		\\
+E-3.3	&	 742 	&	 1,693 	&	 2,986 	&	 7,966 	&	 15,627 	&	 25,446 	&		&		&		&		&		\\
+E-3.4	&	 712 	&	 1,599 	&	 2,839 	&	 6,874 	&	 14,261 	&	 22,781 	&	 21,584 	&		&		&		&		\\
+E-3.5	&	 658 	&	 1,523 	&	 2,723 	&	 6,399 	&	 12,998 	&	 20,275 	&	 19,580 	&	 34,186 	&		&		&		\\
+E-3.6	&	 582 	&	 1,497 	&	 2,570 	&	 6,106 	&	 12,402 	&	 19,162 	&	 18,327 	&	 31,720 	&	 39,219 	&		&		\\
+E-3.7	&	 544 	&	 1,395 	&	 2,293 	&	 5,641 	&	 11,524 	&	 18,906 	&	 17,219 	&	 29,840 	&	 37,154 	&	 43,331 	&		\\
+E-3.8	&	 539 	&	 1,352 	&	 2,124 	&	 5,420 	&	 10,802 	&	 17,809 	&	 16,654 	&	 28,559 	&	 35,279 	&	 39,705 	&	 41,602 	\\
+E-4.0	&	 519 	&	 1,377 	&	 2,100 	&	 5,299 	&	 10,505 	&	 15,634 	&	 16,062 	&	 27,783 	&	 34,171 	&	 37,359 	&	 40,533 	\\
+E-4.1	&	 478 	&	 1,228 	&	 2,085 	&	 4,910 	&	 9,755 	&	 15,403 	&	 15,412 	&	 25,571 	&	 31,425 	&	 35,315 	&	 38,443 	\\
+E-4.2	&	 477 	&	 1,188 	&	 2,042 	&	 4,635 	&	 9,294 	&	 14,716 	&	 14,613 	&	 24,538 	&	 30,354 	&	 34,624 	&	 36,858 	\\
+E-4.3	&	 465 	&	 1,162 	&	 2,001 	&	 4,522 	&	 8,982 	&	 14,255 	&	 14,075 	&	 23,409 	&	 28,933 	&	 32,905 	&	 35,058 	\\
+E-4.4	&	 456 	&	 1,142 	&	 1,985 	&	 4,286 	&	 8,253 	&	 13,108 	&	 12,710 	&	 21,308 	&	 26,069 	&	 29,432 	&	 34,070 	\\
+E-4.5	&	 450 	&	 1,115 	&	 1,772 	&	 4,096 	&	 7,929 	&	 12,369 	&	 11,792 	&	 20,044 	&	 24,549 	&	 27,500 	&	 31,861 	\\
+E-4.6	&	 429 	&	 1,046 	&	 1,649 	&	 3,802 	&	 7,330 	&	 11,236 	&	 10,393 	&	 18,023 	&	 22,044 	&	 24,560 	&	 27,511 	\\ \bottomrule
+Min	&	429	&	1,046	&	1,649	&	3,802	&	7,330	&	11,236	&	10,393	&	18,023	&	22,044	&	24,560	&	27,511	\\
+Mean	&	866	&	1,892	&	2,768	&	5,995	&	11,352	&	17,008	&	15,702	&	25,907	&	30,920	&	33,859	&	35,742	\\
+Median	&	563	&	1,395	&	2,209	&	5,420	&	10,654	&	15,634	&	15,737	&	25,571	&	30,890	&	34,624	&	35,958	\\
+Max	&	2,929	&	6,505	&	7,345	&	11,431	&	19,264	&	25,446	&	21,584	&	34,186	&	39,219	&	43,331	&	41,602	\\ \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+    \caption{The number of stable non-APIs methods in successive Eclipse releases}
+  \label{tab:number-stability}
+\end{table*}
+
+\newpage
+The first column in Table~\ref{tab:number-stability} shows the different Eclipse new releases ($E_{new}$) with which we carried out \texttt{NiCad} cross-clone with $E_{old}$. The second row--\emph{Total} shows the total number of non-APIs in the different Eclipse releases. For example, E-2.1 has a total of $57,084$ non-APIs. The third row--\emph{New} shows the number of newly introduced non-APIs in the different Eclipse releases. For example, E-2.1 has a total of $11,366$ newly introduced non-APIs.
+
+The rest of the values in the matrix tell us the number of non-APIs of the newly introduced non-APIs in given current Eclipse releases that remained unchanged in successive Eclipse releases. For example, the value (E-2.0, E-2.1) = $6,505$ tells us that there were a total of $6,505$ non-APIs of the newly introduced non-APIs in E-2.0--$19,612$ that remained unchanged in E-2.1. In Table~\ref{tab:number-stability} the last four rows presents the descriptive statistics of stability of the non-APIs.
+
+\begin{table*}
+  \centering
+  \begin{adjustbox}{max width=\textwidth,center}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|} \toprule
+		&	E-1.0	&	E-2.0	&	E-2.1	&	E-3.0	&	E-3.1	&	E-3.2	&	E-3.3	&	E-3.4	&	E-3.5	&	E-3.6	&	E-3.7	\\ \hline
+New	&	30,766	&	19,612	&	11,366	&	26,922	&	22,487	&	27,764	&	24,734	&	36,037	&	43,437	&	45,849	&	43,171	\\  \hline
+E-2.0	&	 9.52 	&		&		&		&		&		&		&		&		&		&		\\
+E-2.1	&	 7.96 	&	 33.17 	&		&		&		&		&		&		&		&		&		\\
+E-3.0	&	 4.50 	&	 19.58 	&	 64.62 	&		&		&		&		&		&		&		&		\\
+E-3.1	&	 3.18 	&	 12.60 	&	 38.05 	&	 42.46 	&		&		&		&		&		&		&		\\
+E-3.2	&	 2.58 	&	 10.36 	&	 30.38 	&	 31.70 	&	 85.67 	&		&		&		&		&		&		\\
+E-3.3	&	 2.41 	&	 8.63 	&	 26.27 	&	 29.59 	&	 69.49 	&	 91.65 	&		&		&		&		&		\\
+E-3.4	&	 2.31 	&	 8.15 	&	 24.98 	&	 25.53 	&	 63.42 	&	 82.05 	&	 87.26 	&		&		&		&		\\
+E-3.5	&	 2.14 	&	 7.77 	&	 23.96 	&	 23.77 	&	 57.80 	&	 73.03 	&	 79.16 	&	 94.86 	&		&		&		\\
+E-3.6	&	 1.89 	&	 7.63 	&	 22.61 	&	 22.68 	&	 55.15 	&	 69.02 	&	 74.10 	&	 88.02 	&	 90.29 	&		&		\\
+E-3.7	&	 1.77 	&	 7.11 	&	 20.17 	&	 20.95 	&	 51.25 	&	 68.10 	&	 69.62 	&	 82.80 	&	 85.54 	&	 94.51 	&		\\
+E-3.8	&	 1.75 	&	 6.89 	&	 18.69 	&	 20.13 	&	 48.04 	&	 64.14 	&	 67.33 	&	 79.25 	&	 81.22 	&	 86.60 	&	 96.37 	\\
+E-4.0	&	 1.69 	&	 7.02 	&	 18.48 	&	 19.68 	&	 46.72 	&	 56.31 	&	 64.94 	&	 77.10 	&	 78.67 	&	 81.48 	&	 93.89 	\\
+E-4.1	&	 1.55 	&	 6.26 	&	 18.34 	&	 18.24 	&	 43.38 	&	 55.48 	&	 62.31 	&	 70.96 	&	 72.35 	&	 77.02 	&	 89.05 	\\
+E-4.2	&	 1.55 	&	 6.06 	&	 17.97 	&	 17.22 	&	 41.33 	&	 53.00 	&	 59.08 	&	 68.09 	&	 69.88 	&	 75.52 	&	 85.38 	\\
+E-4.3	&	 1.51 	&	 5.92 	&	 17.61 	&	 16.80 	&	 39.94 	&	 51.34 	&	 56.91 	&	 64.96 	&	 66.61 	&	 71.77 	&	 81.21 	\\
+E-4.4	&	 1.48 	&	 5.82 	&	 17.46 	&	 15.92 	&	 36.70 	&	 47.21 	&	 51.39 	&	 59.13 	&	 60.02 	&	 64.19 	&	 78.92 	\\
+E-4.5	&	 1.46 	&	 5.69 	&	 15.59 	&	 15.21 	&	 35.26 	&	 44.55 	&	 47.68 	&	 55.62 	&	 56.52 	&	 59.98 	&	 73.80 	\\
+E-4.6	&	 1.39 	&	 5.33 	&	 14.51 	&	 14.12 	&	 32.60 	&	 40.47 	&	 42.02 	&	 50.01 	&	 50.75 	&	 53.57 	&	 63.73 	\\ \bottomrule
+
+    \end{tabular}
+    \end{adjustbox}
+    \caption{The percentages of stable non-APIs in successive Eclipse releases with respect to the number of newly introduced non-APIs in given current Eclipse release}
+  \label{tab:perctage-stability-I}
+\end{table*}
+
+In Table~\ref{tab:perctage-stability-I}, we present the percentages of stable non-APIs in successive Eclipse releases with respect to the number of newly introduced non-APIs in given current Eclipse release. The explanation of the first and second row as well as first column in Table~\ref{tab:perctage-stability-I} are as shown in Table~\ref{tab:number-stability}. The numbers presented in the matrix of Table~\ref{tab:perctage-stability-I} show us the percentage of stable non-APIs, of the newly introduced non-APIs in given current Eclipse releases, in successive Eclipse releases. For example, the values in row--E-3.0 show us the percentage of stable non-APIs, of the newly introduced non-APIs in E-3.0--$26,922$, in successive Eclipse releases (E-3.1, E-3.2, E-3.3, etc). The value (E-3.0, E-3.5) = $23.77$ tells us that of the newly introduced non-APIs in E-3.0--$26,922$ there was $23.77\%$ that remained unchanged in E-3.5.
+\newpage
+\begin{table*}
+  \centering
+  \begin{adjustbox}{max width=\textwidth,center}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|} \toprule
+    	&	E-1.0	&	E-2.0	&	E-2.1	&	E-3.0	&	E-3.1	&	E-3.2	&	E-3.3	&	E-3.4	&	E-3.5	&	E-3.6	&	E-3.7	\\ \hline
+Total	&	30,766	&	43,996	&	57,084	&	78,266	&	96,529	&	114,916	&	125,415	&	148,177	&	150,529	&	158,548	&	160,849	\\ \hline
+E-2.0	&	 9.52 	&		&		&		&		&		&		&		&		&		&		\\
+E-2.1	&	 7.96 	&	 14.79 	&		&		&		&		&		&		&		&		&		\\
+E-3.0	&	 4.50 	&	 8.73 	&	 12.87 	&		&		&		&		&		&		&		&		\\
+E-3.1	&	 3.18 	&	 5.62 	&	 7.58 	&	 14.61 	&		&		&		&		&		&		&		\\
+E-3.2	&	 2.58 	&	 4.62 	&	 6.05 	&	 10.91 	&	 19.96 	&		&		&		&		&		&		\\
+E-3.3	&	 2.41 	&	 3.85 	&	 5.23 	&	 10.18 	&	 16.19 	&	 22.14 	&		&		&		&		&		\\
+E-3.4	&	 2.31 	&	 3.63 	&	 4.97 	&	 8.78 	&	 14.77 	&	 19.82 	&	 17.21 	&		&		&		&		\\
+E-3.5	&	 2.14 	&	 3.46 	&	 4.77 	&	 8.18 	&	 13.47 	&	 17.64 	&	 15.61 	&	 23.07 	&		&		&		\\
+E-3.6	&	 1.89 	&	 3.40 	&	 4.50 	&	 7.80 	&	 12.85 	&	 16.67 	&	 14.61 	&	 21.41 	&	 26.05 	&		&		\\
+E-3.7	&	 1.77 	&	 3.17 	&	 4.02 	&	 7.21 	&	 11.94 	&	 16.45 	&	 13.73 	&	 20.14 	&	 24.68 	&	 27.33 	&		\\
+E-3.8	&	 1.75 	&	 3.07 	&	 3.72 	&	 6.93 	&	 11.19 	&	 15.50 	&	 13.28 	&	 19.27 	&	 23.44 	&	 25.04 	&	 25.86 	\\
+E-4.0	&	 1.69 	&	 3.13 	&	 3.68 	&	 6.77 	&	 10.88 	&	 13.60 	&	 12.81 	&	 18.75 	&	 22.70 	&	 23.56 	&	 25.20 	\\
+E-4.1	&	 1.55 	&	 2.79 	&	 3.65 	&	 6.27 	&	 10.11 	&	 13.40 	&	 12.29 	&	 17.26 	&	 20.88 	&	 22.27 	&	 23.90 	\\
+E-4.2	&	 1.55 	&	 2.70 	&	 3.58 	&	 5.92 	&	 9.63 	&	 12.81 	&	 11.65 	&	 16.56 	&	 20.16 	&	 21.84 	&	 22.91 	\\
+E-4.3	&	 1.51 	&	 2.64 	&	 3.51 	&	 5.78 	&	 9.30 	&	 12.40 	&	 11.22 	&	 15.80 	&	 19.22 	&	 20.75 	&	 21.80 	\\
+E-4.4	&	 1.48 	&	 2.60 	&	 3.48 	&	 5.48 	&	 8.55 	&	 11.41 	&	 10.13 	&	 14.38 	&	 17.32 	&	 18.56 	&	 21.18 	\\
+E-4.5	&	 1.46 	&	 2.53 	&	 3.10 	&	 5.23 	&	 8.21 	&	 10.76 	&	 9.40 	&	 13.53 	&	 16.31 	&	 17.34 	&	 19.81 	\\
+E-4.6	&	 1.39 	&	 2.38 	&	 2.89 	&	 4.86 	&	 7.59 	&	 9.78 	&	 8.29 	&	 12.16 	&	 14.64 	&	 15.49 	&	 17.10 	\\ \bottomrule
+    \end{tabular}
+    \end{adjustbox}
+    \caption{The percentage of stable non-API methods, with respect to the total number of non-APIs methods in a given Eclipse release, observed in successive Eclipse releases}
+  \label{tab:perctage-stability-II}
+\end{table*}
+
+In Table~\ref{tab:perctage-stability-II} we present the percentages of stable non-APIs in successive Eclipse releases with respect to the total number of non-APIs in a current Eclipse release. For example, the values in the row--E-3.2 show the percentages of newly introduced non-APIs in the current release E-3.2, that remained unchanged in successive Eclipse releases (E-3.3, E-3.4, E-3.5, etc.). The percentages are computed with respect to the total number of non-APIs in the current release (i.e., E-3.2--$114,916$). The value (E-3.2, E-3.4) = $19.82$ tells us that of the total non-APIs in E-3.2--$114,916$, $19.82\%$ newly introduced non-APIs in E-3.2 remained unchanged in E-3.4. Figure~\ref{fig:non-API-stability} we present a graphical representation of results in Columns--E-1.0, E-2.0, E-2.1, E-3.1, E-3.2, E-3.3 in Table~\ref{tab:perctage-stability-II}.
+
+\begin{figure*}
+    \begin{subfigure}{0.5\textwidth}
+    \includegraphics[scale=0.60]{pdf_img/Stability-I}
+    \caption{figure B}
+    \label{fig:test1}
+    \end{subfigure}\hfill
+    \begin{subfigure}{0.5\textwidth}
+    \includegraphics[scale=0.60]{pdf_img/Stability-II}
+    \caption{figure B}
+    \label{fig:test2}
+    \end{subfigure}
+\caption{Graph showing the percentage of stable non-APIs in successive Eclipse releases with respect to the total number of non-APIs in a current Eclipse releases--E-1.0, E-2.0 and E-2.1 in Figure~\ref{fig:test1}and E-3.1, E-3.2 and E-3.3 in Figure~\ref{fig:test2}}
+\label{fig:non-API-stability}
+\end{figure*}
+\newpage
+\subsection{Discussion}
+From the results presented in Tables~\ref{tab:number-stability} to~\ref{tab:perctage-stability-II} one can observe that some of the non-APIs that were newly introduced in a given Eclipse release still exist and have remained unchanged in subsequent Eclipse releases. In Table~\ref{tab:number-stability}, in the summary statistics in the last four rows, we can observe high values on unchanged newly introduced non-APIs of given current Eclipse releases in successive Eclipse releases. Although as explained earlier in Section~\ref{sec:experiment} that our results may be affected by construct validity, based on the percentages of stable non-APIs in successive Eclipse releases presented, one can still say that the observations are still valid. Take for example  the results of Eclipse 1.0 that are not affected by the construct validity threat since it was the first release, one can say that the $30,766$ non-APIs were newly introduced in this release. After 15 years of the evolution of Eclipse framework producing a major release every year in Table~\ref{tab:perctage-stability-I} cell (E-1.0, E-4.6) we still find about $1.39\%$ of the $30,766$ that have never been changed at all. The values of the percentage of unchanged non-APIs are even higher in later releases of Eclipse. In later Eclipse releases we do observer that the percentages at which the newly introduced non-APIs in a given current Eclipse releases is much higher and the rate at which the percentages reduce in new Eclipse releases is much slower. For example, in Table~\ref{tab:perctage-stability-I}, row--E-3.4 we observe that of the $36,037$ newly introduced non-APIs in E-3.4 only about $5.14\%$ of $36,037$ non-APIs were changed in the next Eclipse release--E-3.5. In the same row--E-3.4, we observe that in the last Eclipse release--E-4.6 there still exists over $50\%$ of the $36,037$ non-APIs newly introduced in E-3.4 that have not been changed.
+
+In Figure~\ref{fig:non-API-stability} we observe that after the first subsequent Eclipse release, the trend in stability of the non-APIs in later releases nearly flattens. This means that the rate at which the non-APIs are changed in later releases is very minimal compared to newly introduced non-APIs. This implies that old non-APIs are relatively stable compared to newly introduced non-APIs. This confirms our earlier finding in Businge~\cite{Businge:compatibilityprediction} where we observed non-API stability by considering how they affect the applications that use them as opposed to studying the interfaces directly.
+\newpage
+\section{Alternative old stable non-APIs in Eclipse}
+\subsection{Results}
+In this section, we present the results of research question \emph{RQ7: Can we find old stable non-APIs as alternatives for new non-APIs?}
+\begin{table*}[!htbp]
+  \centering
+  \begin{adjustbox}{max width=\textwidth,center}
+    \begin{tabular}{|l|c|c|c|c|c|c|c|} \toprule
+    	&	E-3.6	&	E-3.7	&	E-4.2	&	E-4.3	&	E-4.4	&	E-4.5	&	E-4.6 \\ \hline
+Total	&	158,548	&	160,849	&	152,189	&	152,420	&	154,106	&	153,999	&	151,224	\\ \hline
+E-1.0 &	87 & 23 & 77 &  14 & 10	& 49 & 11 \\ \hline
+E-2.0 & 83 & 15 & 26 &  12 & 13 & 22 & 13 \\ \hline
+E-2.1 &	25 & 18	& 17 &	11 & 29	& 30 & 12 \\ \hline
+E-3.0 &	95 & 19	& 99 &	15 & 15	& 25 & 14 \\ \hline
+E-3.1 &	69 & 13	& 49 &	11 & 27	& 17 & 18 \\ \hline
+E-3.2 &	90 & 22	& 52 &	10 & 18	& 15 & 17 \\ \hline
+E-3.3 &	112& 24	& 35 &	18 & 17	& 20 & 16 \\ \hline
+E-3.4 &	54 & 23	& 15 &	13 & 12	& 13 & 13 \\ \hline
+E-3.5 &	52 & 26	& 14 &	12 & 22	& 16 & 11 \\ \hline
+E-3.6 & & 12 & 89 &	11 & 34 & 11 & 12 \\ \hline
+E-3.7 & & & 	 	 78 & 22 & 14 & 28 &12 \\ \hline
+E-4.2 & & & &	 	 	 	25&	18&	15 & 11 \\ \hline
+E-4.3 & & & & &	 	 	 	 	21&	22	& 12 \\ \hline
+E-4.4 & & & & & &	 	 	 	 	 	17&	15\\ \hline
+E-4.5 & & & & & & &	 	 	 	 	 	 	21\\ \hline
+%\bottomrule
+Total & 667 &	195 &	551 &	174 &	250 &	300 &	208 \\ \hline
+Total (\%) & 	0.42 &	0.12 &	0.36 &	0.11 &	0.16 &	0.19 &	0.14 \\ \hline
+    \end{tabular}
+    \end{adjustbox}
+    \caption{The number of old stable non-API with alternative new non-API methods in successive Eclipse releases}
+  \label{old stable non-APIs with new non-APIs}
+\end{table*}
+
+In table ~\ref{old stable non-APIs with new non-APIs}, we present the result of RQ7. We present the number of old stable non-API with alternative new non-API methods in successive Eclipse releases. The first row of table ~\ref{old stable non-APIs with new non-APIs} show the different labeled Eclipse releases as discussed in section ~\ref{number of old alternative non-APIs for new ones}. The second row shows the total number of non-API methods in the different Eclipse releases. The first column show successive Eclipse releases.  
+
+\newpage
+The rest of the matrix shows the number of old stable non-API with new alternative non-API methods. For example the value (E-1.0, E-4.6) =11 tells us that there exist a total of 11 old non-API methods with alternative new non-API methods in Eclipse-4.6 (E-4.6) and that these 11 non-API methods all originated from Eclipse-1.0 (E-1.0). The second last row of table ~\ref{old stable non-APIs with new non-APIs} labeled total shows the total number of stable old non-API with alternative new non-APIs methods for successive Eclipse releases in a given Eclipse release. For example, the value (Total, E-4.6) =208 tells us that there exist 208 old stable non-API in Eclipse 4.6 (E-4.6) with alternative new non-API methods. The last row presents the percentage of the total old stable non-API methods with respect to the total number of non-API methods in the given Eclipse release.
+
+\subsection{Discussion}
+From the result presented in table ~\ref{old stable non-APIs with new non-APIs}, one can tell that there exist insignificant numbers (less than 1\%) of old stable non-API methods with alternative new non-API method in a given studied Eclipse release.
+%%%%%%%%%%%%%%%%%%%% End of Research results %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%Threat to validity
+\chapter{Threat to validity}\label{threatvalidity}
+\section{Chapter Overview}
+As any other empirical study, our analysis may have been affected by validity threats. We categorize the possible threats into construct, internal and external validity.
+
+\section{Construct validity}
+Construct validity focuses on how accurately the metrics utilized measure the phenomena of interest. The methodology used to determine the  the the percentage of clones in Eclipse and number of stable non-API methods may be slightly subjected to construct validity. The reason being that we only use methods in our computations yet there are other objects we have ignored, for example, variable declarations. However it should be noted that users of the framework call methods while developing their applications.
+
+As any other empirical study, our analysis may have been affected by validity threats. In Section~\ref{sec:experiment} we hinted that our results could be affected by \textit{construct validity}. The way we extracted our data using clone detection, if a non-API has changed only the name without changing its contents, it will be considered as a newly introduced non-API method. Because of the prohibitive amount of work that was involved, we did not take care of this threat. This problem can be solved when we consider Type-II and Type-II which we plan to carry out in our follow-up studies.
+
+\section{Internal validity}
+Internal validity is related to  uncontrolled aspects that may affect the experimental results. Our conclusions are threaten by internal validity since in our clone detection analysis we do not consider Type-IV clones. The reason is that it is difficult for a tool to identify Type-IV clones. It is possible that our results could have been different if we could have also detected Type-IV clones. In Section~\ref{sec:percent_clones} we mentioned that, for simplicity, we used direct subtraction as opposed to step-wise subtraction to isolate Type-II and Type-III clones. If the code we are analyzing contains a lot of nested methods, direct subtraction would result into subtraction errors. Luckily, on testing Eclipse version 3.4 we discovered that the difference in the two computation methods is less that $0.4\%$. This means that there are very few nested methods in Eclipse source code.
+
+Furthermore Nicad cross-clone detector failed to parse 10 and 12 java files of Eclipse releases 2.1 and 3.8 respectively. It is possible that our results could have been different if the tool had successfully parsed theses files. However looking at the total number of files in these respective Eclipse releases and that only 2 out of 19 analyzed releases had files that could not be parsed, the impact of their failure can be considered minimal.
+
+There is an \textit{internal validity} threat related to the tool (i.e., NiCad) used to extract the data used in our experiments. It is possible that results could differ if a different tool was used. Like any other static analysis tool, the NiCaD tool we used does not have a 100\% precision. However other studies who have compared NiCad tool with other clone detection tools have observed that NiCad tool has the highest precision and recall of any existing code clone detector tools~\cite{Svajlenko:2015,Roy:2009}.
+
+\section{External Validity}
+External Validity is related to the possibility to generalize our results. We focused on the analysis of widely adopted and large-scale framework. Therefore Eclipse SDK Framework is a credible and representative case study. The framework is open source and thus its source code is easily accessible. Despite these observations, our findings as usual in empirical software engineering cannot be directly generalized to other systems, specifically to systems implemented in other programming languages other than java.
+
+\chapter{Conclusions and Future Work}\label{chapter:Conclusions}
+\section{Conclusion}
+In study we have investigated Eclipse interface for all the 18 major releases using clone detection analysis. First, we studied the code cloning of Eclipse method interfaces in general. We discovered that in all the Eclipse releases, cloned method range from $8.0\%$ to $9.8\%$. This confirms what has been reported in literature. Secondly, we studied code cloning for the identified clone pairs in the different Eclipse releases based on two categories: i) methods in clone pairs originating from different Eclipse projects, ii) methods in clone pairs originating from same project but different sub-projects. Our findings in all the Eclipse releases indicate that in category--(i) an average of about $1.5\%$ and in category--(ii) an average of about $2.2\%$ of the fully qualified cloned methods as a fraction of the total number of methods in Eclipse. On further investigations on the possible causes of observed behaviour, we discovered that some committers are involved in more than one Eclipse project. It is possible that these committers copy code from one Eclipse project they are involved in to other Eclipse projects they are also involved in. Third, using clone detection analysis, we wanted to discover if there exists stable Eclipse interfaces (APIs) as an alternative for the unstable ones (non-APIs). Our findings reveal that Eclipse offers twice as much functionality in the non-APIs compared to the APIs it provides to the interface users. Furthermore, we did not find significant numbers (less than $1\%$) of APIs offering the same or similar functionality as the non-APIs in all Eclipse releases. Our findings conquer with the claims of  Eclipse interface users that the reason they use non-APIs is because the functionality they require can only be found in non-APIs. Indeed, the interface users have no choice but to use the non-APIs as opposed to implementing their own interfaces from scratch or copying the non-API code into their own code.
+
+To reduce on the challenges faced by the Eclipse interface users, our recommendations backed by the findings of this research are that Eclipse interface providers should expedite the graduation of non-APIs to APIs. Although the results we have discovered in this study about alternative APIs for the non-APIs are insignificant, Eclipse providers can use them as a starting point to provided APIs from non-APIs for the Eclipse releases they still support. It would cost less effort to convert non-APIs we have found to APIs than doing it from scratch. In our followup study, we would like to investigate the evolution of non-APIs and assess their graduation rate to APIs.
+
+Our findings are: 1) We confirmed our earlier preliminary observation in Kawuma et al.~\cite{kawuma2016can} that indeed the introduction of non-APIs in the Eclipse releases is much higher than that of APIs 2) we have observed that indeed there exist non-APIs that remain unchanged in many releases durng the evolution of Eclipse. This is a very big problem especially to interface users who are scared of using non-APIs or even avoid using them as they are warned that they are likely to change or even disappear in subsequent Eclipse releases with out notice.
+
+We make the two main recommendations to Eclipse interface providers and interface users:
+\begin{enumerate}
+  \item \emph{Interface users}: Interface users should avoid using newly introduced non-APIs because they are subject to change. Instead they should use old non-APIs since we have discovered that there is a chance that they will stay unchanged in subsequent releases.
+  \item \emph{Interface providers}: Interface providers should not keep non-APIs for a very long time during the evolution of the Eclipse framework as the users are scared to use them. Our findings have discovered that some of the non-APIs stay unchanged in many of the evolutionary releases of Eclipse. These interfaces should be promoted to APIs.
+\end{enumerate}
+
+\subsection{Future Work}
+In our follow up study, we would like to carry out an investigation to ascertain the software quality of the identified stable non-API interfaces by looking at parameters like Technical debt, bugs, complexity, documentation, maintainability etc. of the source code of stable non-API interfaces. We will also build an Eclipse plugin that will be integrated in Eclipse IDE to aid application developers to identify stable non-API interfaces.
+
+In this study,  we only considered Type-I and Type-II cross-clones. In our follow-up studies, we intend to consider Type-III and Type-IV. We also hope to carry out a survey on the interface providers so that we can understand why some interfaces remain unchanged for a very long period of time yet they are not promoted into APIs. After successful extension of our follow-up study on Type-II and Type-III clones, we intend to build a tool that can be used by interface users to automatically replace unstable non-APIs with relatively stable non-APIs offering the same or similar functionality.
+
+%%%%%%%%%%%%%%%%%%%% End of conclusion %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+

@@ -1,0 +1,238 @@
+\documentclass[12pt]{thesis} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%% preample %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\documentclass[12pt]{article}
+%mmmmmmmmmmmmmmmmmmmmmmmm
+\setcounter{tocdepth}{3}       %Depth of Levels in the table of Contents i.e. words after 4.2.4.1
+
+\setcounter{secnumdepth}{3}    %Depth of Levels in the table of Contents i.e. 4.2.4.1 will appear
+%mmmmmmmmmmmmmmmmmmmmmmmm
+
+
+\usepackage{tabularx}
+
+\usepackage{enumerate}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+%\usepackage{amssymb}
+%\usepackage{graphicx}
+\usepackage{times}
+%\usepackage{multirow}			% for many rows in a cell of a table
+%\usepackage{setspace}
+\usepackage{float}				% for positioning figures, tables in exact positions i.e [H] option
+
+%%%%%%%%%%%%%%%%%%%%%% End of Packages for Proposal %%%%%%%%%%%%%%%%
+%\usepackage{url}
+
+
+
+\usepackage{url}
+
+%% Define a new 'leo' style for the package that will use a smaller font.
+\makeatletter
+\def\url@leostyle{%
+  \@ifundefined{selectfont}{\def\UrlFont{\sf}}{\def\UrlFont{\small\ttfamily}}}
+\makeatother
+%% Now actually use the newly defined style.
+\urlstyle{leo}
+
+
+
+
+\usepackage{cite} %%%% this arranges multiple refs in order but removes the color and hyperlink %%%%%%%%%%%%%%%%%
+
+
+
+\usepackage[T1]{fontenc}        % euro quality fonts [T1] (togeth. w/ textcomp)
+\usepackage{textcomp, amssymb}  % additional symbols (there are more packages)
+%%%%%%%%%\usepackage[latin1]{inputenc}   % umlaute in input file
+\usepackage{setspace}           % doublespacing
+\usepackage{anysize}            % margin package sets tighter margins
+\usepackage[all]{xy}            % creating figures within latex
+%\usepackage[tight]{subfigure}% subfigures: figures within figures
+
+%\marginsize{1.2in}{0.9in}{1.1in}{0.9in} % small margins
+\marginsize{1.2in}{0.9in}{0.5in}{1.5in} % small margins
+
+\usepackage{ifpdf}              % if pdflatex then ... else ...
+\ifpdf
+  \pdfadjustspacing=1           % make pdflatex behave like latex
+  \usepackage{aeguill}          % PS converted CM fonts for better acro preview
+  \usepackage[pdftex]{graphicx} % graphics packages
+  \usepackage[pdftex]{color}    % color packages
+  \usepackage[pdftex]{thumbpdf} % create thumbnails (run thumbpdf as well)
+  \usepackage[pdftex,colorlinks,%
+              pagebackref=true, % bibliography -> text
+              linktocpage=true, % toc etc: make page number active (not name)
+              plainpages=false, % distinguish roman and arabic pagenumbers
+              bookmarksopen=true,%
+              bookmarksnumbered=true,%
+              pdfauthor={Kambale Wesley},%
+              pdftitle={An Outbreak Prediction System for Rota-virus using Naive Bayes},%
+              pdfsubject={Undergraduate Research},%
+              pdfkeywords={Outbreak, Prediction, Rotavirus, Naive Bayes},%
+             ]{hyperref}        % clickabe references
+\else
+  \usepackage[hypertex,
+              plainpages=false, % distinguish roman and arabic pagenumbers
+              linktocpage=true, % toc etc: make page number active (not name)
+             ]{hyperref}        % clickabe references in .dvi
+                                % purposely included before color package
+  \usepackage[dvips]{color}     % color packages; needed by xy
+  \usepackage[dvips]{graphicx}  % graphics packages
+  \graphicspath{ {./images/} }
+\fi
+
+
+% hyperref must be the second last package and glossary the last package
+
+% index
+
+\usepackage{makeidx}                       % for \printindex
+\makeindex                                 % creates paper.idx index file
+
+% glossary
+%\usepackage[style=super, cols=3]{glossary} % for \printclossary
+%\makeglossary                              % creates paper.glo glossary file
+\usepackage{listings,multicol}
+ \usepackage{courier}
+ %\lstlistoflistings
+\definecolor{darkgray}{rgb}{0.95,0.95,0.95}
+\lstset{language=XML}
+%\lstset{backgroundcolor=\color{darkgray}}
+%\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt}
+\lstset{keywordstyle=\color{red}\bfseries\emph}
+%\lstset{fonttype = \fontfamily{courier}\selectfont
+
+\renewcommand{\topfraction}{.9}
+\renewcommand{\bottomfraction}{.9}
+\renewcommand{\textfraction}{.1}
+\renewcommand{\floatpagefraction}{.9}
+\renewcommand{\dbltopfraction}{.9}
+\renewcommand{\dblfloatpagefraction}{.9}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+\setcounter{totalnumber}{50}
+\setcounter{dbltopnumber}{50}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\definecolor{maroon}{rgb}{0.5,0,0}
+\definecolor{darkgreen}{rgb}{0,0.5,0}
+
+\lstdefinelanguage{XML}
+{
+  basicstyle=\ttfamily,
+  morestring=[s]{"}{"},
+  morecomment=[s]{?}{?},
+  morecomment=[s]{!--}{--},
+  commentstyle=\color{darkgreen},
+  moredelim=[s][\color{black}]{>}{<},
+  moredelim=[s][\color{red}]{\ }{=},
+  stringstyle=\color{blue},
+  identifierstyle=\color{maroon}
+}
+
+%%% style and finetuning %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\pagestyle{plain}               % pagestyle: headings, empty, plain
+
+% new theorems
+\newtheorem{example}{Example}
+\newtheorem{proof}{Proof}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% this is for including ticks(checks) in a table
+\usepackage{tikz}
+\usepackage{calc}
+\def\checkmark{\tikz\fill[scale=0.4](0,.35) -- (.25,0) -- (1,.7) -- (.25,.15) -- cycle;}
+\def\scalecheck{\resizebox{\widthof{\checkmark}*\ratio{\widthof{x}}{\widthof{\normalsize x}}}{!}{\checkmark}}
+
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{adjustbox}
+\usepackage{hyperref}
+\usepackage{bookmark}
+\usepackage{subcaption}
+%\usepackage{lipsum}
+%\usepackage{subfig}
+%\usepackage{graphicx,lipsum,afterpage,subcaption}
+%\usepackage{enumitem}
+% The booktabs package is needed to typeset good looking tables. I’ve written a post on the booktabs % package earlier. The multirow package is needed to create cells spanning multiple rows in your
+% that's defined it - now for a test
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%% document %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+
+\ifpdf\pdfbookmark[1]{Title}{label:title}\fi              \input{titlepage.tex}
+
+%%\newpage                                \input{spruch.tex}
+
+%%%%%%%%%%%%%%% set roman numerals for page numbers %%%%%%%%%%%%%%%%%%%%%
+\newpage\pagenumbering{roman}
+
+\newpage\input{declaration.tex} %%%%%% call this file %%%%%%%%%
+\newpage\input{Approval.tex} %%%%%% call this file %%%%%%%%%
+
+{\doublespacing
+\newpage\ifpdf\pdfbookmark[1]{Acknowledgement}{label:ack}\fi\input{acknowledge.tex}
+\newpage\ifpdf\pdfbookmark[1]{Dedication}{label:ded}\fi\input{dedication.tex}
+\newpage\ifpdf\pdfbookmark[1]{Abstract}{label:abst}\fi\input{abstract.tex}
+}
+
+\newpage\ifpdf\pdfbookmark[1]{Table of Contents}{label:toc}\fi \tableofcontents
+\newpage\ifpdf\pdfbookmark[1]{List of Figures}{label:lof}\fi     \listoffigures
+%\newpage\ifpdf\pdfbookmark[1]{List of Tables}{label:lot}\fi       \listoftables
+
+
+{\doublespacing
+\newpage\pagenumbering{arabic} %%%% force the rest to have arabic pages %%%%%%%%
+
+\newpage\input{body.tex}
+
+
+% Bibliography and Glossary          (\phantomsection is needed for hyperlinks)
+
+\newpage\phantomsection%
+\addcontentsline{toc}{chapter}{\bibname}              % add Bibliography to TOC
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%\bibliographystyle{alpha}\bibliography{references}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%% nabaasa %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\bibliographystyle{plain} % or {acm} % but {IEEEannot} does not work
+%\bibliographystyle{unsrturl}
+\bibliography{references}
+%%%%%%%%%%%%%%%%%%%%%% end nabaasa %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newpage\input{appendices.tex}
+
+
+\newpage\phantomsection%
+\addcontentsline{toc}{chapter}{\indexname}                   % add Index to TOC
+%\printindex                        %% prints index page at the end %%%%
+
+\newpage\phantomsection%
+\addcontentsline{toc}{chapter}{Glossary}                  % add Glossary to TOC
+%\printglossary                     %%prints glossary page at the end %%%
+
+\end{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
