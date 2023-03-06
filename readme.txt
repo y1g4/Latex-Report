@@ -1,7 +1,7 @@
 Thesis Template
 ===============
 
-This is the template for my PhD thesis. I commented the latex prologue and tried to keep it as simple as possible, so it can be easily understood and extended. The template holds dummy text with examples for creating tables, figures, index and glossary.
+This is the template for my UNdergraduate Research. I commented the latex prologue and tried to keep it as simple as possible, so it can be easily understood and extended. The template holds dummy text with examples for creating tables, figures, index and glossary.
 
 
 There is a makefile that creates three files:
